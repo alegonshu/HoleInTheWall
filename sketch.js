@@ -1,5 +1,5 @@
 let host = "cpsc484-03.yale.internal:8888";
-
+let score = 0;
 
 let frames = {
   socket: null,
@@ -21,10 +21,10 @@ let frames = {
 
   get_body_coordinates: function (frame) {
     let coordinates = {};
-    if (frame.people.length < 1) {
-        console.log("No body detected");
-        return null;
-    }
+    // if (frame.people.length < 1) {
+    //     console.log("No body detected");
+    //     return null;
+    // }
 
     let body_index = {
         'PELVIS': 0,
@@ -48,33 +48,33 @@ let frames = {
         'EAR_RIGHT': 31,
     };
 
-    for (let part in body_index) {
-      let index = body_index[part];
-      let x = frame.people[0].joints[index].position.x;
-      let y = frame.people[0].joints[index].position.y;
-      let z = frame.people[0].joints[index].position.z;
-      coordinates[part] = [x, y, z]
-    }
+    // for (let part in body_index) {
+    //   let index = body_index[part];
+    //   let x = frame.people[0].joints[index].position.x;
+    //   let y = frame.people[0].joints[index].position.y;
+    //   let z = frame.people[0].joints[index].position.z;
+    //   coordinates[part] = [x, y, z]
+    // }
       //hardcoded coordinates for testing
-      // coordinates['PELVIS'] = [100, 200, 10];
-      // coordinates['NECK'] = [100, 150, 10];
-      // coordinates['HEAD'] = [100, 100, 10];
-      // coordinates['EAR_LEFT'] = [65, 90, 10];
-      // coordinates['EAR_RIGHT'] = [135, 90, 10];
-      // coordinates['SHOULDER_LEFT'] = [75, 140, 10];
-      // coordinates['ELBOW_LEFT'] = [50, 140, 10];
-      // coordinates['WRIST_LEFT'] = [30, 140, 10];
-      // coordinates['SHOULDER_RIGHT'] = [125, 140, 10];
-      // coordinates['ELBOW_RIGHT'] = [150, 140, 10];
-      // coordinates['WRIST_RIGHT'] = [170, 140, 10];
-      // coordinates['HIP_LEFT'] = [80, 220, 10];
-      // coordinates['KNEE_LEFT'] = [80, 260, 10];
-      // coordinates['ANKLE_LEFT'] = [80, 290, 10];
-      // coordinates['HIP_RIGHT'] = [120, 220, 10];
-      // coordinates['KNEE_RIGHT'] = [120, 260, 10];
-      // coordinates['ANKLE_RIGHT'] = [120, 290, 10];
-      // coordinates['FOOT_LEFT'] = [75, 310, 10];
-      // coordinates['FOOT_RIGHT'] = [125, 310, 10];
+      coordinates['PELVIS'] = [100, 200, 10];
+      coordinates['NECK'] = [100, 150, 10];
+      coordinates['HEAD'] = [100, 100, 10];
+      coordinates['EAR_LEFT'] = [65, 90, 10];
+      coordinates['EAR_RIGHT'] = [135, 90, 10];
+      coordinates['SHOULDER_LEFT'] = [75, 140, 10];
+      coordinates['ELBOW_LEFT'] = [50, 140, 10];
+      coordinates['WRIST_LEFT'] = [30, 140, 10];
+      coordinates['SHOULDER_RIGHT'] = [125, 140, 10];
+      coordinates['ELBOW_RIGHT'] = [150, 140, 10];
+      coordinates['WRIST_RIGHT'] = [170, 140, 10];
+      coordinates['HIP_LEFT'] = [80, 220, 10];
+      coordinates['KNEE_LEFT'] = [80, 260, 10];
+      coordinates['ANKLE_LEFT'] = [80, 290, 10];  
+      coordinates['HIP_RIGHT'] = [120, 220, 10];
+      coordinates['KNEE_RIGHT'] = [120, 260, 10];
+      coordinates['ANKLE_RIGHT'] = [120, 290, 10];
+      coordinates['FOOT_LEFT'] = [75, 310, 10];
+      coordinates['FOOT_RIGHT'] = [125, 310, 10];
       console.log(coordinates);
 
     return coordinates;
@@ -104,13 +104,15 @@ function drawBody(coordinates) {
   
   // Clear the canvas
   ctx.clearRect(0, 0, canvas.width, canvas.height);
-  ctx.strokeStyle = "rgba(64, 224, 208, 0.5)";
+  ctx.strokeStyle = "rgba(64, 224, 208, 0.8)";
   ctx.lineWidth = 20;
-  ctx.fillStyle = "rgba(64, 224, 208, 0.5)";
+  ctx.fillStyle = "rgba(64, 224, 208, 0.8)";
   
   // Draw the body
   // console.log('sketching body');
   ctx.beginPath();
+  // let centerX = canvas.width / 2;
+  // let bottomY = canvas.height;
   
   let radius = (coordinates['EAR_RIGHT'][0] - coordinates['EAR_LEFT'][0]) / 2.5;
   // Draw the head
@@ -142,13 +144,13 @@ function drawBody(coordinates) {
   ctx.moveTo(coordinates['HIP_RIGHT'][0], coordinates['HIP_RIGHT'][1]);
   ctx.lineTo(coordinates['KNEE_RIGHT'][0], coordinates['KNEE_RIGHT'][1]);
   ctx.lineTo(coordinates['ANKLE_RIGHT'][0], coordinates['ANKLE_RIGHT'][1]);
-  
+
   // Stroke and fill the path
   ctx.stroke();
   ctx.fill();
 }
 
-function animateDiv(duration) {
+function animateWall(duration) {
   const start = performance.now();
   const wall = document.getElementById('wall');
   const box = document.getElementById('box');
@@ -160,12 +162,13 @@ function animateDiv(duration) {
     const elapsed = performance.now() - start;
     const progress = Math.min(elapsed / duration, 1);
     const scale = progress.toFixed(2);
-    console.log(scale);
-    const newWidth = baseWidth + ((scale * 100) - 1) / wallRatio;
 
     wall.style.width = `${scale * 100}%`;
     wall.style.height = `${scale * 100}%`;
-    box.style.width = `${newWidth}%`;
+    box.style.width = `${scale * 10}%`;
+    box.style.height = `${scale * 30}%`;
+    console.log(`This is the wall height ${wall.style.height}`);
+    console.log(`This is the box height ${box.style.height}`);
 
     if (progress < 1) {
       window.requestAnimationFrame(animate);
@@ -175,8 +178,15 @@ function animateDiv(duration) {
   window.requestAnimationFrame(animate);
 }
 
+function updateScore() {
+  const scoreElement = document.getElementById('score');
+  score += 1;
+  scoreElement.innerHTML = `Score: ${score}`;
+}
+
 $(document).ready(function() {
   frames.start();
   twod.start();
-  animateDiv(7000);
+  animateWall(7000);
+  updateScore();
 });

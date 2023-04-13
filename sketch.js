@@ -1,8 +1,5 @@
 let host = "cpsc484-03.yale.internal:8888";
-$(document).ready(function() {
-  frames.start();
-  twod.start();
-});
+
 
 let frames = {
   socket: null,
@@ -14,7 +11,6 @@ let frames = {
       let coordinates = frames.get_body_coordinates(JSON.parse(event.data));
       if (coordinates !== null) {
         console.log("Drawing body");
-        drawPoint(context, coordinates['PELVIS'][0], coordinates['PELVIS'][1], 'A', 'red', 1, );
         drawBody(coordinates);
       }
       else {
@@ -79,7 +75,7 @@ let frames = {
       // coordinates['ANKLE_RIGHT'] = [120, 290, 10];
       // coordinates['FOOT_LEFT'] = [75, 310, 10];
       // coordinates['FOOT_RIGHT'] = [125, 310, 10];
-      //   console.log(coordinates);
+      console.log(coordinates);
 
     return coordinates;
   }
@@ -113,7 +109,7 @@ function drawBody(coordinates) {
   ctx.fillStyle = "rgba(64, 224, 208, 0.5)";
   
   // Draw the body
-  console.log('sketching body');
+  // console.log('sketching body');
   ctx.beginPath();
   
   let radius = (coordinates['EAR_RIGHT'][0] - coordinates['EAR_LEFT'][0]) / 2.5;
@@ -152,3 +148,35 @@ function drawBody(coordinates) {
   ctx.fill();
 }
 
+function animateDiv(duration) {
+  const start = performance.now();
+  const wall = document.getElementById('wall');
+  const box = document.getElementById('box');
+  const wallRatio = 5;
+  const baseWidth = parseFloat(getComputedStyle(box).width);
+
+
+  function animate() {
+    const elapsed = performance.now() - start;
+    const progress = Math.min(elapsed / duration, 1);
+    const scale = progress.toFixed(2);
+    console.log(scale);
+    const newWidth = baseWidth + ((scale * 100) - 1) / wallRatio;
+
+    wall.style.width = `${scale * 100}%`;
+    wall.style.height = `${scale * 100}%`;
+    box.style.width = `${newWidth}%`;
+
+    if (progress < 1) {
+      window.requestAnimationFrame(animate);
+    }
+  }
+
+  window.requestAnimationFrame(animate);
+}
+
+$(document).ready(function() {
+  frames.start();
+  twod.start();
+  animateDiv(7000);
+});

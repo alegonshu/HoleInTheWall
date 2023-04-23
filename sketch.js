@@ -1,4 +1,29 @@
 let host = "cpsc484-03.yale.internal:8888";
+var body_coor = {};
+var body_color = "rgba(64, 224, 208, 0.8)";
+
+let body_index = {
+  'PELVIS': 0,
+  'NECK': 3,
+  'ELBOW_LEFT': 6,
+  'ELBOW_RIGHT': 13,
+  'SHOULDER_LEFT': 5,
+  'SHOULDER_RIGHT': 12,
+  'HEAD': 26,
+  'WRIST_LEFT': 7,
+  'WRIST_RIGHT': 14,
+  'FOOT_LEFT': 21,
+  'FOOT_RIGHT': 25,
+  'HIP_LEFT': 18,
+  'KNEE_LEFT': 19,
+  'ANKLE_LEFT': 20,
+  'HIP_RIGHT': 22,
+  'KNEE_RIGHT': 23,
+  'ANKLE_RIGHT': 24,
+  'EAR_LEFT': 29,
+  'EAR_RIGHT': 31,
+};
+
 
 let frames = {
   socket: null,
@@ -8,8 +33,9 @@ let frames = {
     frames.socket = new WebSocket(url);
     frames.socket.onmessage = function (event) {
       let coordinates = frames.get_body_coordinates(JSON.parse(event.data));
+      body_coor = coordinates;
       if (coordinates !== null) {
-        console.log("Drawing body");
+        // console.log("Drawing body");
         drawBody(coordinates);
       }
       else {
@@ -25,35 +51,13 @@ let frames = {
         return null;
     }
 
-    let body_index = {
-        'PELVIS': 0,
-        'NECK': 3,
-        'ELBOW_LEFT': 6,
-        'ELBOW_RIGHT': 13,
-        'SHOULDER_LEFT': 5,
-        'SHOULDER_RIGHT': 12,
-        'HEAD': 26,
-        'WRIST_LEFT': 7,
-        'WRIST_RIGHT': 14,
-        'FOOT_LEFT': 21,
-        'FOOT_RIGHT': 25,
-        'HIP_LEFT': 18,
-        'KNEE_LEFT': 19,
-        'ANKLE_LEFT': 20,
-        'HIP_RIGHT': 22,
-        'KNEE_RIGHT': 23,
-        'ANKLE_RIGHT': 24,
-        'EAR_LEFT': 29,
-        'EAR_RIGHT': 31,
-    };
-
     for (let part in body_index) {
         let index = body_index[part];
         let x = window.innerWidth - (frame.people[0].joints[index].pixel.x);
         let y = (frame.people[0].joints[index].pixel.y);
         // let z = frame.people[0].joints[index].position.z;
         coordinates[part] = [x, y]
-        console.log(part + ": " + coordinates[part]);
+        // console.log(part + ": " + coordinates[part]);
       }
         //hardcoded coordinates for testing
         // coordinates['PELVIS'] = [100, 200];
@@ -81,7 +85,7 @@ let frames = {
     }
   };
   
-  let twod = {
+  let twod = {  
     socket: null,
   
     start: function() {
@@ -104,9 +108,9 @@ let frames = {
     
     // Clear the canvas
     ctx.clearRect(0, 0, canvas.width, canvas.height);
-    ctx.strokeStyle = "rgba(64, 224, 208, 0.8)";
-    ctx.lineWidth = 10;
-    ctx.fillStyle = "rgba(64, 224, 208, 0.8)";
+    ctx.strokeStyle = body_color;
+    ctx.lineWidth = 20;
+    ctx.fillStyle = body_color;
     
     // Draw the body
     ctx.beginPath();
@@ -115,7 +119,7 @@ let frames = {
     if (radius < 0) {
       radius = -radius;
     }
-    console.log("radius: " + radius)
+    // console.log("radius: " + radius)
     // Draw the head
     ctx.arc(coordinates['HEAD'][0], coordinates['HEAD'][1], radius, 0, 2*Math.PI);
     
@@ -203,81 +207,105 @@ class Scene2 extends Phaser.Scene {
         this.tile.depth = 0;
 
         // create a new graphics object
-        this.graphics = this.add.graphics();
+        const rect = new Phaser.Geom.Rectangle(-150, 0, 300, 570);
+        this.hole = this.add.graphics();
+        this.hole.setName("hole");
 
         // set the fill color and alpha
-        this.graphics.fillStyle(0x000000, 1);
-        this.graphics.lineStyle(4, 0x000000, 1);
+        this.hole.fillStyle(0x000000, 1);
+        this.hole.lineStyle(4, 0x000000, 1);
+        this.hole.strokeRectShape(rect);
+        this.hole.fillRectShape(rect);
 
         // draw the human body shape using the graphics object
-        this.graphics.beginPath();
+        // this.hole.beginPath();
 
-        //draw head
-        this.graphics.arc(0, -100, 50, Phaser.Math.DegToRad(0), Phaser.Math.DegToRad(360), false);
-        this.graphics.moveTo(0, -50);
-        this.graphics.lineTo(80, -50);
+        // draw head
+        // this.hole.arc(0, -100, 50, Phaser.Math.DegToRad(0), Phaser.Math.DegToRad(360), false);
+        // this.hole.moveTo(0, -50);
+        // this.hole.lineTo(80, -50);
 
-        //draw right arm
-        this.graphics.lineTo(200, -50);
-        this.graphics.lineTo(200, -20);
-        this.graphics.lineTo(80, -20);
+        // draw right arm
+        // this.hole.lineTo(200, -50);
+        // this.hole.lineTo(200, -20);
+        // this.hole.lineTo(80, -20);
 
-        //draw right leg
-        this.graphics.lineTo(80, 150);
-        this.graphics.lineTo(80, 300);
-        this.graphics.lineTo(50, 300);
-        this.graphics.lineTo(50, 150);
-
-
-        //draw left leg
-        this.graphics.lineTo(-50, 150);
-        this.graphics.lineTo(-50, 300);
-        this.graphics.lineTo(-80, 300);
-        this.graphics.lineTo(-80, 150);
-
-        //draw left arm
-        this.graphics.lineTo(-80, -20);
-        this.graphics.lineTo(-200, -20);
-        this.graphics.lineTo(-200, -50);
-        this.graphics.lineTo(-80, -50);
-
-        this.graphics.lineTo(0, -50);
-        this.graphics.closePath();
-        this.graphics.strokePath();
-        this.graphics.fillPath();
-        this.graphics.depth = 2;
-
-        this.graphics.x = window.innerWidth / 2;
-        this.graphics.y = window.innerHeight / 2;
-        this.graphics.scaleX = 0.1;
-        this.graphics.scaleY = 0.1;
+        // draw right leg
+        // this.hole.lineTo(80, 150);
+        // this.hole.lineTo(80, 300);
+        // this.hole.lineTo(50, 300);
+        // this.hole.lineTo(50, 150);
 
 
-        this.graphics.setInteractive();
-        // this.graphics.on('pointerdown', function(pointer) {
-        //     check if the graphics object contains the pointer position
-        //     if (this.graphics.getBounds().contains(pointer.x, pointer.y)) {
-        //       console.log('clicked on graphics');
-        //     }
-        //   }, this);
+        // draw left leg
+        // this.hole.lineTo(-50, 150);
+        // this.hole.lineTo(-50, 300);
+        // this.hole.lineTo(-80, 300);
+        // this.hole.lineTo(-80, 150);
 
-        this.graphics.setInteractive();
-        this.graphics.on('pointerdown', function(pointer) {
-            console.log('Graphics clicked!');
-        }, this);
+        // draw left arm
+        // this.hole.lineTo(-80, -20);
+        // this.hole.lineTo(-200, -20);
+        // this.hole.lineTo(-200, -50);
+        // this.hole.lineTo(-80, -50);
+
+        // this.hole.lineTo(0, -50);
+        // this.hole.closePath();
+        // this.hole.strokePath();
+        // this.hole.fillPath();
+
+        this.hole.depth = 2;
+        this.hole.x = window.innerWidth / 2;
+        this.hole.y = window.innerHeight /2;
+        this.hole.scaleX = 0.1;
+        this.hole.scaleY = 0.1;
+
+
+        this.hole.setInteractive();
+
 
     }
     update() {
-
+        var hole = this.children.getByName("hole");
         if (this.tile.displayWidth < window.innerWidth) {
-            // this.tile.displayHeight += window.innerHeight/250;
-            // this.tile.displayWidth += window.innerWidth/250;
             this.tile.scaleX += 0.005;
             this.tile.scaleY += 0.005;
-            this.graphics.scaleX += 0.005;
-            this.graphics.scaleY += 0.005;
+            hole.scaleX += 0.005;
+            hole.scaleY += 0.005;
         }
-        
+        else {
+          // -250, 0, 500, 570
+          const holeBounds = {
+            x: hole.x,
+            y: hole.y ,
+            width: 300 * hole.scaleX,
+            height: 570 * hole.scaleY,
+          };
+          console.log(holeBounds);
+          
+          let state = true;
+          if (body_coor != null) {
+          for (let part in body_index) {
+            if (
+              body_coor[part][0] >= holeBounds.x &&
+              body_coor[part][1] >= holeBounds.y &&
+              body_coor[part][0] <= holeBounds.x + holeBounds.width &&
+              body_coor[part][1] <= holeBounds.y + holeBounds.height
+            ) {
+              console.log(`${part}:(${body_coor[part][0]}, ${body_coor[part][1]}) in hole`);
+            } else {
+              state = false;
+              console.log(`${part}:(${body_coor[part][0]}, ${body_coor[part][1]}) not in hole`);
+            }
+          }
+          if (state) {
+            body_color = "rgba(0, 0, 250, 0.8)";
+          }
+          else {
+            body_color = "rgba(64, 224, 208 , 0.8)";
+          }
+        }
+        }
     }
 }
 

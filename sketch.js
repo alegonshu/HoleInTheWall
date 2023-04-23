@@ -21,10 +21,10 @@ let frames = {
 
   get_body_coordinates: function (frame) {
     let coordinates = {};
-    // if (frame.people.length < 1) {
-    //     console.log("No body detected");
-    //     return null;
-    // }
+    if (frame.people.length < 1) {
+        console.log("No body detected");
+        return null;
+    }
 
     let body_index = {
         'PELVIS': 0,
@@ -48,34 +48,35 @@ let frames = {
         'EAR_RIGHT': 31,
     };
 
-    // for (let part in body_index) {
-    //   let index = body_index[part];
-    //   let x = frame.people[0].joints[index].position.x;
-    //   let y = frame.people[0].joints[index].position.y;
-    //   let z = frame.people[0].joints[index].position.z;
-    //   coordinates[part] = [x, y, z]
-    // }
+    for (let part in body_index) {
+      let index = body_index[part];
+      let x = (frame.people[0].joints[index].pixel.x)/5;
+      let y = (frame.people[0].joints[index].pixel.y)/5;
+      // let z = frame.people[0].joints[index].position.z;
+      coordinates[part] = [x, y]
+      console.log(part + ": " + coordinates[part]);
+    }
       //hardcoded coordinates for testing
-      coordinates['PELVIS'] = [100, 200, 10];
-      coordinates['NECK'] = [100, 150, 10];
-      coordinates['HEAD'] = [100, 100, 10];
-      coordinates['EAR_LEFT'] = [65, 90, 10];
-      coordinates['EAR_RIGHT'] = [135, 90, 10];
-      coordinates['SHOULDER_LEFT'] = [75, 140, 10];
-      coordinates['ELBOW_LEFT'] = [50, 140, 10];
-      coordinates['WRIST_LEFT'] = [30, 140, 10];
-      coordinates['SHOULDER_RIGHT'] = [125, 140, 10];
-      coordinates['ELBOW_RIGHT'] = [150, 140, 10];
-      coordinates['WRIST_RIGHT'] = [170, 140, 10];
-      coordinates['HIP_LEFT'] = [80, 220, 10];
-      coordinates['KNEE_LEFT'] = [80, 260, 10];
-      coordinates['ANKLE_LEFT'] = [80, 290, 10];  
-      coordinates['HIP_RIGHT'] = [120, 220, 10];
-      coordinates['KNEE_RIGHT'] = [120, 260, 10];
-      coordinates['ANKLE_RIGHT'] = [120, 290, 10];
-      coordinates['FOOT_LEFT'] = [75, 310, 10];
-      coordinates['FOOT_RIGHT'] = [125, 310, 10];
-      console.log(coordinates);
+      // coordinates['PELVIS'] = [100, 200];
+      // coordinates['NECK'] = [100, 150];
+      // coordinates['HEAD'] = [100, 100];
+      // coordinates['EAR_LEFT'] = [65, 90];
+      // coordinates['EAR_RIGHT'] = [135, 90];
+      // coordinates['SHOULDER_LEFT'] = [75, 140];
+      // coordinates['ELBOW_LEFT'] = [50, 140];
+      // coordinates['WRIST_LEFT'] = [30, 140];
+      // coordinates['SHOULDER_RIGHT'] = [125, 140];
+      // coordinates['ELBOW_RIGHT'] = [150, 140];
+      // coordinates['WRIST_RIGHT'] = [170, 140];
+      // coordinates['HIP_LEFT'] = [80, 220];
+      // coordinates['KNEE_LEFT'] = [80, 260];
+      // coordinates['ANKLE_LEFT'] = [80, 290];  
+      // coordinates['HIP_RIGHT'] = [120, 220];
+      // coordinates['KNEE_RIGHT'] = [120, 260];
+      // coordinates['ANKLE_RIGHT'] = [120, 290];
+      // coordinates['FOOT_LEFT'] = [75, 310];
+      // coordinates['FOOT_RIGHT'] = [125, 310];
+      // console.log(coordinates);
 
     return coordinates;
   }
@@ -105,16 +106,17 @@ function drawBody(coordinates) {
   // Clear the canvas
   ctx.clearRect(0, 0, canvas.width, canvas.height);
   ctx.strokeStyle = "rgba(64, 224, 208, 0.8)";
-  ctx.lineWidth = 20;
+  ctx.lineWidth = 10;
   ctx.fillStyle = "rgba(64, 224, 208, 0.8)";
   
   // Draw the body
-  // console.log('sketching body');
   ctx.beginPath();
-  // let centerX = canvas.width / 2;
-  // let bottomY = canvas.height;
-  
+
   let radius = (coordinates['EAR_RIGHT'][0] - coordinates['EAR_LEFT'][0]) / 2.5;
+  if (radius < 0) {
+    radius = -radius;
+  }
+  console.log("radius: " + radius)
   // Draw the head
   ctx.arc(coordinates['HEAD'][0], coordinates['HEAD'][1], radius, 0, 2*Math.PI);
   
@@ -160,15 +162,19 @@ function animateWall(duration) {
 
   function animate() {
     const elapsed = performance.now() - start;
+    // console.log(`This is the elapsed time ${elapsed/1000}s`); //convert to timer
     const progress = Math.min(elapsed / duration, 1);
     const scale = progress.toFixed(2);
+    // console.log(`This is the scale ${scale} at ${elapsed/1000}s`);
+    const box_scale = (progress + 0.5).toFixed(2);
+    // console.log(`This is the box scale ${box_scale} at ${elapsed/1000}s`)
 
     wall.style.width = `${scale * 100}%`;
     wall.style.height = `${scale * 100}%`;
-    box.style.width = `${scale * 10}%`;
-    box.style.height = `${scale * 30}%`;
-    console.log(`This is the wall height ${wall.style.height}`);
-    console.log(`This is the box height ${box.style.height}`);
+    box.style.width = `${box_scale* 10}%`;
+    box.style.height = `${box_scale * 30}%`;
+    // console.log(`This is the wall height ${wall.style.height}`);
+    // console.log(`This is the box height ${box.style.height}`);
 
     if (progress < 1) {
       window.requestAnimationFrame(animate);

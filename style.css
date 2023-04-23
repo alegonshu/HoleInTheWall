@@ -203,16 +203,4 @@ html, body {
     bottom: 30px;
     border-radius: 10px;
   }
-  
-  .right-leg {
-    grid-row: 3 / 4;
-    grid-column: 3 / 4;
-    background-color: #f0e68c;
-    width: 40px;
-    height: 100px;
-    position: relative;
-    bottom: 30px;
-    border-radius: 10px;
-  } */
-  
 

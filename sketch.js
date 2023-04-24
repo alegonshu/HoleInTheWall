@@ -290,8 +290,10 @@ class Scene3 extends Phaser.Scene {
         this.tile = this.add.sprite(window.innerWidth / 2, window.innerHeight / 2, 'wall');
         // tile.setOrigin(0.5);
 
-        this.tile.scaleX = 0.08;
-        this.tile.scaleY = 0.08;
+        // this.tile.scaleX = 0.08;
+        // this.tile.scaleY = 0.08;
+        this.tile.displayHeight = window.innerHeight;
+        this.tile.displayWidth = window.innerWidth;
         this.tile.depth = 0;
 
         // create a new graphics object
@@ -397,7 +399,7 @@ class Hole {
   constructor(scene) {
     this.scene = scene;
     this.graphics = this.scene.add.graphics();;
-    this.count = 1;
+    this.count = 3;
     this.max = 4;
   }
 
@@ -409,8 +411,8 @@ class Hole {
     this.graphics.depth = 2;
     this.graphics.x = window.innerWidth / 2;
     this.graphics.y = window.innerHeight /2;
-    this.graphics.scaleX = 0.1;
-    this.graphics.scaleY = 0.1;
+    this.graphics.scaleX = 1;
+    this.graphics.scaleY = 1;
 
     switch (this.count) {
       case 1: // person
@@ -433,7 +435,7 @@ class Hole {
           -60,-40,
         ]);
         this.graphics.fillPoints(body.points, true);
-        
+
         let head = new Phaser.Geom.Circle(0, -100,60);
         this.graphics.fillCircleShape(head);
         break;

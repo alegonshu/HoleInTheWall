@@ -1,6 +1,6 @@
 let host = "cpsc484-03.yale.internal:8888";
 var body_coor = {};
-var body_color = "rgba(64, 224, 208, 0.8)";
+var body_color = "rgba(64, 224, 208, 0.8) ";
 
 let body_index = {
   'PELVIS': 0,
@@ -24,6 +24,9 @@ let body_index = {
   'EAR_RIGHT': 31,
 };
 
+const canvas = document.getElementById('my-canvas');
+canvas.height = window.innerHeight;
+canvas.width = window.innerWidth;
 
 let frames = {
   socket: null,
@@ -55,11 +58,9 @@ let frames = {
         let index = body_index[part];
         let x = window.innerWidth - (frame.people[0].joints[index].pixel.x);
         let y = (frame.people[0].joints[index].pixel.y);
-        // let z = frame.people[0].joints[index].position.z;
         coordinates[part] = [x, y]
-        // console.log(part + ": " + coordinates[part]);
       }
-        //hardcoded coordinates for testing
+        // hardcoded coordinates for testing
         // coordinates['PELVIS'] = [100, 200];
         // coordinates['NECK'] = [100, 150];
         // coordinates['HEAD'] = [100, 100];
@@ -70,17 +71,21 @@ let frames = {
         // coordinates['WRIST_LEFT'] = [30, 140];
         // coordinates['SHOULDER_RIGHT'] = [125, 140];
         // coordinates['ELBOW_RIGHT'] = [150, 140];
-        // coordinates['WRIST_RIGHT'] = [170, 140];
+        // coordinates['WRIST_RIGHT'] = [100, 140];
         // coordinates['HIP_LEFT'] = [80, 220];
         // coordinates['KNEE_LEFT'] = [80, 260];
-        // coordinates['ANKLE_LEFT'] = [80, 290];  
+        // coordinates['ANKLE_LEFT'] = [80, 200];  
         // coordinates['HIP_RIGHT'] = [120, 220];
         // coordinates['KNEE_RIGHT'] = [120, 260];
         // coordinates['ANKLE_RIGHT'] = [120, 290];
         // coordinates['FOOT_LEFT'] = [75, 310];
         // coordinates['FOOT_RIGHT'] = [125, 310];
+
+        // for (let part in coordinates) {
+        //   coordinates[part][0] += 620;
+        //   coordinates[part][1] += 300;
         // console.log(coordinates);
-  
+        // }
       return coordinates;
     }
   };
@@ -171,11 +176,11 @@ let frames = {
         this.background.displayWidth = window.innerWidth;
         // this.background.scaleX = window.innerWidth;
 
-        this.add.text(430,300, "HOLE IN THE WALL", {
+        this.add.text(350,300, "HOLE IN THE WALL", {
             font: "70px Arial", 
             fill: "#ff0044"
         });
-        this.add.text(500,450, "RAISE YOUR HAND TO PLAY", {
+        this.add.text(500,400, "RAISE YOUR HAND TO PLAY", {
             font: "30px Arial", 
             fill: "yellow"
         });
@@ -190,7 +195,29 @@ let frames = {
 class Scene2 extends Phaser.Scene {
     constructor () {
         super('playGame');
+
+        this.body1 = new Phaser.Geom.Polygon([
+          60, -40,
+          250,-40,
+          250,0,
+          60,0,
+          60,200,
+          60,380,
+          10,380,
+          10,200,
+          -10,200,
+          -10,380,
+          -60,380,
+          -60,200,
+          -60,0,
+          -250,0,
+          -250,-40,
+          -60,-40,
+      ]);
+
+        this.head = new Phaser.Geom.Circle(0, -100,60);
     }
+    
 
     preload() {
         this.load.image('wall', 'assets/images/wall.webp');
@@ -200,59 +227,25 @@ class Scene2 extends Phaser.Scene {
         frames.start();
         this.tile = this.add.sprite(window.innerWidth / 2, window.innerHeight / 2, 'wall');
         // tile.setOrigin(0.5);
-        // this.tile.displayWidth = window.innerWidth/1000;
-        // this.tile.displayHeight = window.innerHeight/1000;
-        this.tile.scaleX = 0.1;
-        this.tile.scaleY = 0.1;
+
+        this.tile.scaleX = 0.08;
+        this.tile.scaleY = 0.08;
         this.tile.depth = 0;
 
         // create a new graphics object
         const rect = new Phaser.Geom.Rectangle(-150, 0, 300, 570);
+        
+        
         this.hole = this.add.graphics();
         this.hole.setName("hole");
 
         // set the fill color and alpha
         this.hole.fillStyle(0x000000, 1);
         this.hole.lineStyle(4, 0x000000, 1);
-        this.hole.strokeRectShape(rect);
-        this.hole.fillRectShape(rect);
-
-        // draw the human body shape using the graphics object
-        // this.hole.beginPath();
-
-        // draw head
-        // this.hole.arc(0, -100, 50, Phaser.Math.DegToRad(0), Phaser.Math.DegToRad(360), false);
-        // this.hole.moveTo(0, -50);
-        // this.hole.lineTo(80, -50);
-
-        // draw right arm
-        // this.hole.lineTo(200, -50);
-        // this.hole.lineTo(200, -20);
-        // this.hole.lineTo(80, -20);
-
-        // draw right leg
-        // this.hole.lineTo(80, 150);
-        // this.hole.lineTo(80, 300);
-        // this.hole.lineTo(50, 300);
-        // this.hole.lineTo(50, 150);
-
-
-        // draw left leg
-        // this.hole.lineTo(-50, 150);
-        // this.hole.lineTo(-50, 300);
-        // this.hole.lineTo(-80, 300);
-        // this.hole.lineTo(-80, 150);
-
-        // draw left arm
-        // this.hole.lineTo(-80, -20);
-        // this.hole.lineTo(-200, -20);
-        // this.hole.lineTo(-200, -50);
-        // this.hole.lineTo(-80, -50);
-
-        // this.hole.lineTo(0, -50);
-        // this.hole.closePath();
-        // this.hole.strokePath();
-        // this.hole.fillPath();
+        // this.hole.strokeRectShape(rect);
+        // this.hole.fillRectShape(rect);
+        this.hole.fillPoints(this.body1.points, true);
+        this.hole.fillCircleShape(this.head);
 
         this.hole.depth = 2;
         this.hole.x = window.innerWidth / 2;
@@ -261,42 +254,49 @@ class Scene2 extends Phaser.Scene {
         this.hole.scaleY = 0.1;
 
 
-        this.hole.setInteractive();
-
-
     }
     update() {
         var hole = this.children.getByName("hole");
-        if (this.tile.displayWidth < window.innerWidth) {
-            this.tile.scaleX += 0.005;
-            this.tile.scaleY += 0.005;
-            hole.scaleX += 0.005;
-            hole.scaleY += 0.005;
+
+        if (hole.scaleX < 1) {
+            this.tile.scaleX += 0.0025;
+            this.tile.scaleY += 0.002;  
+            hole.scaleX += 0.003;
+            hole.scaleY += 0.003;
         }
         else {
           // -250, 0, 500, 570
-          const holeBounds = {
-            x: hole.x,
-            y: hole.y ,
-            width: 300 * hole.scaleX,
-            height: 570 * hole.scaleY,
-          };
-          console.log(holeBounds);
+          // const holeBounds = {
+          //   x: hole.x,
+          //   y: hole.y ,
+          //   width: 300 * hole.scaleX,
+          //   height: 570 * hole.scaleY,
+          // };
+          // console.log(holeBounds);
           
           let state = true;
           if (body_coor != null) {
+            console.log(this.body1.points, this.head);
           for (let part in body_index) {
-            if (
-              body_coor[part][0] >= holeBounds.x &&
-              body_coor[part][1] >= holeBounds.y &&
-              body_coor[part][0] <= holeBounds.x + holeBounds.width &&
-              body_coor[part][1] <= holeBounds.y + holeBounds.height
-            ) {
-              console.log(`${part}:(${body_coor[part][0]}, ${body_coor[part][1]}) in hole`);
-            } else {
+            let current_point = new Phaser.Geom.Point(body_coor[part][0]- window.innerWidth/2, body_coor[part][1]- window.innerHeight/2);
+            if (!Phaser.Geom.Polygon.ContainsPoint(this.body1, current_point) && !Phaser.Geom.Circle.ContainsPoint(this.head, current_point)){
               state = false;
-              console.log(`${part}:(${body_coor[part][0]}, ${body_coor[part][1]}) not in hole`);
+              console.log(`${part}:${current_point}) not in hole`);
             }
+            else {
+              console.log(`${part}:(${current_point}) in hole`);
+            }
+            // if (
+            //   body_coor[part][0] >= holeBounds.x &&
+            //   body_coor[part][1] >= holeBounds.y &&
+            //   body_coor[part][0] <= holeBounds.x + holeBounds.width &&
+            //   body_coor[part][1] <= holeBounds.y + holeBounds.height
+            // ) {
+            //   console.log(`${part}:(${body_coor[part][0]}, ${body_coor[part][1]}) in hole`);
+            // } else {
+            //   state = false;
+            //   console.log(`${part}:(${body_coor[part][0]}, ${body_coor[part][1]}) not in hole`);
+            // }
           }
           if (state) {
             body_color = "rgba(0, 0, 250, 0.8)";

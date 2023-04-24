@@ -340,7 +340,7 @@ class Scene3 extends Phaser.Scene {
 }
 
 function handCheck() {
-    if ((body_coor !== {}) && (body_coor != undefined) && (body_coor !== null)) {
+    if ((body_coor != undefined) && (body_coor !== null) && (body_coor !== {}) && (Object.keys(body_coor.length !== 0))) {
             if (body_coor['WRIST_RIGHT'][1] < body_coor['SHOULDER_RIGHT'][1]) {
                 verify = true;
                 return true;
@@ -348,7 +348,9 @@ function handCheck() {
             else {
                 return false;
             }
+          
     }
+    return false;
 }
 
 function hole_coordinates() {
@@ -403,89 +405,6 @@ function hole_coordinates() {
   return coordinates;
 }
 
-class Hole {
-  constructor(scene) {
-    this.scene = scene;
-    this.graphics = this.scene.add.graphics();
-    this.graphics.setName("hole");
-    this.graphics.fillStyle(0x000000, 1);
-    this.graphics.lineStyle(4, 0x000000, 1);
-    this.graphics.depth = 2;
-    this.graphics.x = window.innerWidth / 2;
-    this.graphics.y = window.innerHeight /2;
-    this.graphics.scaleX = 1;
-    this.graphics.scaleY = 1;
-
-    this.max = 4;
-    this.count = Math.floor(Math.random() * this.max) + 1;
-  }
-
-  render() {
-    switch (this.count) {
-      case 1: // person
-        var body = new Phaser.Geom.Polygon([
-          60, -40,
-          250,-40,
-          250,0,
-          60,0,
-          60,200,
-          60,380,
-          10,380,
-          10,200,
-          -10,200,
-          -10,380,
-          -60,380,
-          -60,200,
-          -60,0,
-          -250,0,
-          -250,-40,
-          -60,-40,
-        ]);
-        this.graphics.fillPoints(body.points, true);
-
-        let head = new Phaser.Geom.Circle(0, -100,60);
-        this.graphics.fillCircleShape(head);
-        break;
-      case 2: // center rectangle
-        var body = new Phaser.Geom.Polygon([
-          -100, -200,
-          -100, 400,
-          100, 400,
-          100, -200,
-        ]);
-
-        this.graphics.fillPoints(body.points, true);
-        break;
-      case 3: // left rectangle
-        var body = new Phaser.Geom.Polygon([
-          -500, -200,
-          -500, 400,
-          -300, 400,
-          -300, -200,
-        ]);
-
-        this.graphics.fillPoints(body.points, true);
-        break;
-      case 4: // right rectangle
-        var body = new Phaser.Geom.Polygon([
-          300, -200,
-          300, 400,
-          500, 400,
-          500, -200,
-        ]);
-
-        this.graphics.fillPoints(body.points, true);
-        break;
-    }
-  }
-
-  // next() {
-  //   this.count = this.count + 1;
-  //   if (this.count > this. max){
-  //     this.count = 1;
-  //   }
-  // }
-}
 
 const config = {
     type:  Phaser.AUTO,

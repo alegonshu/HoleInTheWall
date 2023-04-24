@@ -192,7 +192,7 @@ let frames = {
         //     this.scene.start('playGame');
         // }
         this.input.keyboard.on('keydown-ENTER', () => {
-            this.scene.start('playGame');
+            this.scene.start('Instructions');
           });
     }
     update() {
@@ -200,14 +200,62 @@ let frames = {
         if (handCheck()) {
             setTimeout(() => {
                 if (verify) {
-                    this.scene.start('playGame');
+                    this.scene.start('Instructions');
                 }
             }, 2000);
         }
     }
 }
-
 class Scene2 extends Phaser.Scene {
+    constructor () {
+        super('Instructions');
+    }
+
+    preload() {
+        this.load.image("background", "assets/images/hole-bg.png");
+    }
+    create() {
+        // this.add.text(100, 100, "Loading game...");
+        this.background = this.add.image(0, 0, "background");
+        this.background.setOrigin(0, 0);
+        this.background.displayHeight = window.innerHeight;
+        this.background.displayWidth = window.innerWidth;
+        // this.background.scaleX = window.innerWidth;
+
+        this.add.text(300,300, "A red wall with a black hole will begin to move towards you.", {
+            font: "20px Arial", 
+            fill: "#ff0044"
+        });
+        this.add.text(300,400, "Position yourself such that you fit through the hole.", {
+            font: "20px Arial", 
+            fill: "#ff0044"
+        });
+        this.add.text(300,500, "Be quick and precise to avoid being hit by the walls.", {
+            font: "20px Arial", 
+            fill: "#ff0044"
+        });
+        this.add.text(300,600, "Good luck and have fun!", {
+            font: "20px Arial", 
+            fill: "#ff0044"
+        });
+          
+        
+        // console.log(body_coor[7][1], body_coor[12][1]);
+        // start game
+        // if (handCheck()) {
+        //     this.scene.start('playGame');
+        // }
+        this.input.keyboard.on('keydown-ENTER', () => {
+            this.scene.start('playGame');
+          });
+    }
+    update() {
+            setTimeout(() => {
+                this.scene.start('playGame');
+            }, 2000);
+        }
+}
+class Scene3 extends Phaser.Scene {
     constructor () {
         super('playGame');
 
@@ -324,7 +372,7 @@ class Scene2 extends Phaser.Scene {
 }
 
 function handCheck() {
-    if((Object.keys(body_coor).length !== 0) && (body_coor != undefined)) {
+    if ((Object.keys(body_coor).length !== 0) && (body_coor != undefined)) {
             if (body_coor['WRIST_RIGHT'][1] < body_coor['SHOULDER_RIGHT'][1]) {
                 verify = true;
                 return true;
@@ -340,7 +388,7 @@ const config = {
     height: window.innerHeight,
     width: window.innerWidth,
     backgroundColor: '#FFFFFF',
-    scene: [Scene1, Scene2]
+    scene: [Scene1, Scene2, Scene3]
 }
 
 window.onload = function() {

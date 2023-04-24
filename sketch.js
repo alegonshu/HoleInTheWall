@@ -181,7 +181,7 @@ let frames = {
             font: "70px Arial", 
             fill: "#ff0044"
         });
-        this.add.text(500,400, "RAISE YOUR HAND TO PLAY", {
+        this.add.text(500,400, "RAISE YOUR RIGHT HAND TO PLAY", {
             font: "30px Arial", 
             fill: "yellow"
         });

@@ -1,6 +1,7 @@
 let host = "cpsc484-03.yale.internal:8888";
 var body_coor = {};
 var body_color = "rgba(64, 224, 208, 0.8) ";
+let verify = false;
 
 let body_index = {
   'PELVIS': 0,
@@ -184,11 +185,25 @@ let frames = {
             font: "30px Arial", 
             fill: "yellow"
         });
-
-        //start game
+        
+        // console.log(body_coor[7][1], body_coor[12][1]);
+        // start game
+        // if (handCheck()) {
+        //     this.scene.start('playGame');
+        // }
         this.input.keyboard.on('keydown-ENTER', () => {
             this.scene.start('playGame');
           });
+    }
+    update() {
+        console.log(verify);
+        if (handCheck()) {
+            setTimeout(() => {
+                if (verify) {
+                    this.scene.start('playGame');
+                }
+            }, 2000);
+        }
     }
 }
 
@@ -224,7 +239,6 @@ class Scene2 extends Phaser.Scene {
         this.load.image('allblack', 'assets/images/hole.webp');
     }
     create() {
-        frames.start();
         this.tile = this.add.sprite(window.innerWidth / 2, window.innerHeight / 2, 'wall');
         // tile.setOrigin(0.5);
 
@@ -273,7 +287,7 @@ class Scene2 extends Phaser.Scene {
           //   height: 570 * hole.scaleY,
           // };
           // console.log(holeBounds);
-          
+        //   console.log(body_coor[""][0]);
           let state = true;
           if (body_coor != null) {
             console.log(this.body1.points, this.head);
@@ -309,6 +323,17 @@ class Scene2 extends Phaser.Scene {
     }
 }
 
+function handCheck() {
+    if((Object.keys(body_coor).length !== 0) && (body_coor != undefined)) {
+            if (body_coor['WRIST_RIGHT'][1] < body_coor['SHOULDER_RIGHT'][1]) {
+                verify = true;
+                return true;
+            }
+            else {
+                return false;
+            }
+    }
+}
 
 const config = {
     type:  Phaser.AUTO,
@@ -322,9 +347,9 @@ window.onload = function() {
     var game = new Phaser.Game(config);
 }
 
-
 $(document).ready(function() {
-  twod.start();
+    frames.start();
+    twod.start();
 });
 
 

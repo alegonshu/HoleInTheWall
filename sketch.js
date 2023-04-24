@@ -252,33 +252,33 @@ class Scene2 extends Phaser.Scene {
     update() {
             setTimeout(() => {
                 this.scene.start('playGame');
-            }, 2000);
+            }, 5000);
         }
 }
 class Scene3 extends Phaser.Scene {
     constructor () {
         super('playGame');
 
-        this.body1 = new Phaser.Geom.Polygon([
-          60, -40,
-          250,-40,
-          250,0,
-          60,0,
-          60,200,
-          60,380,
-          10,380,
-          10,200,
-          -10,200,
-          -10,380,
-          -60,380,
-          -60,200,
-          -60,0,
-          -250,0,
-          -250,-40,
-          -60,-40,
-      ]);
+      //   this.body1 = new Phaser.Geom.Polygon([
+      //     60, -40,
+      //     250,-40,
+      //     250,0,
+      //     60,0,
+      //     60,200,
+      //     60,380,
+      //     10,380,
+      //     10,200,
+      //     -10,200,
+      //     -10,380,
+      //     -60,380,
+      //     -60,200,
+      //     -60,0,
+      //     -250,0,
+      //     -250,-40,
+      //     -60,-40,
+      // ]);
 
-        this.head = new Phaser.Geom.Circle(0, -100,60);
+      //   this.head = new Phaser.Geom.Circle(0, -100,60);
     }
     
 
@@ -295,80 +295,90 @@ class Scene3 extends Phaser.Scene {
         this.tile.depth = 0;
 
         // create a new graphics object
-        const rect = new Phaser.Geom.Rectangle(-150, 0, 300, 570);
+        // const rect = new Phaser.Geom.Rectangle(-150, 0, 300, 570);
         
         
-        this.hole = this.add.graphics();
-        this.hole.setName("hole");
+        // this.graphics = this.add.graphics();
+        // this.graphics.setName("hole");
 
         // set the fill color and alpha
-        this.hole.fillStyle(0x000000, 1);
-        this.hole.lineStyle(4, 0x000000, 1);
+        // this.graphics.fillStyle(0x000000, 1);
+        // this.graphics.lineStyle(4, 0x000000, 1);
         // this.hole.strokeRectShape(rect);
         // this.hole.fillRectShape(rect);
-        this.hole.fillPoints(this.body1.points, true);
-        this.hole.fillCircleShape(this.head);
 
-        this.hole.depth = 2;
-        this.hole.x = window.innerWidth / 2;
-        this.hole.y = window.innerHeight /2;
-        this.hole.scaleX = 0.1;
-        this.hole.scaleY = 0.1;
+        // this.hole.fillPoints(this.body1.points, true);
+        // this.hole.fillCircleShape(this.head);
+
+        this.hole = new Hole(this);
+        this.hole.render();
+
+        // this.graphics.depth = 2;
+        // this.graphics.x = window.innerWidth / 2;
+        // this.graphics.y = window.innerHeight /2;
+        // this.graphics.scaleX = 0.1;
+        // this.graphics.scaleY = 0.1;
 
 
     }
-    update() {
-        var hole = this.children.getByName("hole");
 
-        if (hole.scaleX < 1) {
-            this.tile.scaleX += 0.0025;
-            this.tile.scaleY += 0.002;  
-            hole.scaleX += 0.003;
-            hole.scaleY += 0.003;
-        }
-        else {
-          // -250, 0, 500, 570
-          // const holeBounds = {
-          //   x: hole.x,
-          //   y: hole.y ,
-          //   width: 300 * hole.scaleX,
-          //   height: 570 * hole.scaleY,
-          // };
-          // console.log(holeBounds);
-        //   console.log(body_coor[""][0]);
-          let state = true;
-          if (body_coor != null) {
-            console.log(this.body1.points, this.head);
-          for (let part in body_index) {
-            let current_point = new Phaser.Geom.Point(body_coor[part][0]- window.innerWidth/2, body_coor[part][1]- window.innerHeight/2);
-            if (!Phaser.Geom.Polygon.ContainsPoint(this.body1, current_point) && !Phaser.Geom.Circle.ContainsPoint(this.head, current_point)){
-              state = false;
-              console.log(`${part}:${current_point}) not in hole`);
-            }
-            else {
-              console.log(`${part}:(${current_point}) in hole`);
-            }
-            // if (
-            //   body_coor[part][0] >= holeBounds.x &&
-            //   body_coor[part][1] >= holeBounds.y &&
-            //   body_coor[part][0] <= holeBounds.x + holeBounds.width &&
-            //   body_coor[part][1] <= holeBounds.y + holeBounds.height
-            // ) {
-            //   console.log(`${part}:(${body_coor[part][0]}, ${body_coor[part][1]}) in hole`);
-            // } else {
-            //   state = false;
-            //   console.log(`${part}:(${body_coor[part][0]}, ${body_coor[part][1]}) not in hole`);
-            // }
-          }
-          if (state) {
-            body_color = "rgba(0, 0, 250, 0.8)";
-          }
-          else {
-            body_color = "rgba(64, 224, 208 , 0.8)";
-          }
-        }
-        }
-    }
+    // update() {
+    //   // this.hole.next();
+    //   // this.hole.render();
+    // }
+    
+    // update() {
+    //     var hole = this.children.getByName("hole");
+
+    //     if (hole.scaleX < 1) {
+    //         this.tile.scaleX += 0.0025;
+    //         this.tile.scaleY += 0.002;  
+    //         hole.scaleX += 0.003;
+    //         hole.scaleY += 0.003;
+    //     }
+    //     else {
+    //       // -250, 0, 500, 570
+    //       // const holeBounds = {
+    //       //   x: hole.x,
+    //       //   y: hole.y ,
+    //       //   width: 300 * hole.scaleX,
+    //       //   height: 570 * hole.scaleY,
+    //       // };
+    //       // console.log(holeBounds);
+    //     //   console.log(body_coor[""][0]);
+    //       let state = true;
+    //       if (body_coor != null) {
+    //         console.log(this.body1.points, this.head);
+    //       for (let part in body_index) {
+    //         let current_point = new Phaser.Geom.Point(body_coor[part][0]- window.innerWidth/2, body_coor[part][1]- window.innerHeight/2);
+    //         if (!Phaser.Geom.Polygon.ContainsPoint(this.body1, current_point) && !Phaser.Geom.Circle.ContainsPoint(this.head, current_point)){
+    //           state = false;
+    //           console.log(`${part}:${current_point}) not in hole`);
+    //         }
+    //         else {
+    //           console.log(`${part}:(${current_point}) in hole`);
+    //         }
+    //         // if (
+    //         //   body_coor[part][0] >= holeBounds.x &&
+    //         //   body_coor[part][1] >= holeBounds.y &&
+    //         //   body_coor[part][0] <= holeBounds.x + holeBounds.width &&
+    //         //   body_coor[part][1] <= holeBounds.y + holeBounds.height
+    //         // ) {
+    //         //   console.log(`${part}:(${body_coor[part][0]}, ${body_coor[part][1]}) in hole`);
+    //         // } else {
+    //         //   state = false;
+    //         //   console.log(`${part}:(${body_coor[part][0]}, ${body_coor[part][1]}) not in hole`);
+    //         // }
+    //       }
+    //       if (state) {
+    //         body_color = "rgba(0, 0, 250, 0.8)";
+    //       }
+    //       else {
+    //         body_color = "rgba(64, 224, 208 , 0.8)";
+    //       }
+    //     }
+    //     }
+    // }
 }
 
 function handCheck() {
@@ -381,6 +391,91 @@ function handCheck() {
                 return false;
             }
     }
+}
+
+class Hole {
+  constructor(scene) {
+    this.scene = scene;
+    this.graphics = this.scene.add.graphics();;
+    this.count = 1;
+    this.max = 4;
+  }
+
+  render() {
+    this.graphics.clear();
+    this.graphics.setName("hole");
+    this.graphics.fillStyle(0x000000, 1);
+    this.graphics.lineStyle(4, 0x000000, 1);
+    this.graphics.depth = 2;
+    this.graphics.x = window.innerWidth / 2;
+    this.graphics.y = window.innerHeight /2;
+    this.graphics.scaleX = 0.1;
+    this.graphics.scaleY = 0.1;
+
+    switch (this.count) {
+      case 1: // person
+        var body = new Phaser.Geom.Polygon([
+          60, -40,
+          250,-40,
+          250,0,
+          60,0,
+          60,200,
+          60,380,
+          10,380,
+          10,200,
+          -10,200,
+          -10,380,
+          -60,380,
+          -60,200,
+          -60,0,
+          -250,0,
+          -250,-40,
+          -60,-40,
+        ]);
+        this.graphics.fillPoints(body.points, true);
+        
+        let head = new Phaser.Geom.Circle(0, -100,60);
+        this.graphics.fillCircleShape(head);
+        break;
+      case 2: // center rectangle
+        var body = new Phaser.Geom.Polygon([
+          -100, -200,
+          -100, 400,
+          100, 400,
+          100, -200,
+        ]);
+
+        this.graphics.fillPoints(body.points, true);
+        break;
+      case 3: // left rectangle
+        var body = new Phaser.Geom.Polygon([
+          -500, -200,
+          -500, 400,
+          -300, 400,
+          -300, -200,
+        ]);
+
+        this.graphics.fillPoints(body.points, true);
+        break;
+      case 4: // right rectangle
+        var body = new Phaser.Geom.Polygon([
+          300, -200,
+          300, 400,
+          500, 400,
+          500, -200,
+        ]);
+
+        this.graphics.fillPoints(body.points, true);
+        break;
+    }
+  }
+
+  next() {
+    this.count = this.count + 1;
+    if (this.count > this. max){
+      this.count = 1;
+    }
+  }
 }
 
 const config = {

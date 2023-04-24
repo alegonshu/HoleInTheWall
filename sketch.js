@@ -170,12 +170,10 @@ let frames = {
         this.load.image("background", "assets/images/hole-bg.png");
     }
     create() {
-        // this.add.text(100, 100, "Loading game...");
         this.background = this.add.image(0, 0, "background");
         this.background.setOrigin(0, 0);
         this.background.displayHeight = window.innerHeight;
         this.background.displayWidth = window.innerWidth;
-        // this.background.scaleX = window.innerWidth;
 
         this.add.text(350,300, "HOLE IN THE WALL", {
             font: "70px Arial", 
@@ -382,7 +380,7 @@ class Scene3 extends Phaser.Scene {
 }
 
 function handCheck() {
-    if ((Object.keys(body_coor).length !== 0) && (body_coor != undefined)) {
+    if ((body_coor !== {}) && (body_coor != undefined) && (body_coor !== null)) {
             if (body_coor['WRIST_RIGHT'][1] < body_coor['SHOULDER_RIGHT'][1]) {
                 verify = true;
                 return true;

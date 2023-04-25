@@ -513,14 +513,14 @@ class Scene5 extends Phaser.Scene {
     //     font: "100px Arial", 
     //     fill: "#000000"
     // });
-      this.add.text(700,750, "Raise your hand to restart", {
-        font: "50px Arial", 
+      this.add.text(550,750, "Raise your hand to restart", {
+        font: "50px Monaco", 
         fill: "#ffffff"
     });
         this.count = 10;
-        this.countdownEl = this.add.text(570, 850, `Returning to the home screen in ... ${this.count}s`, 
+        this.countdownEl = this.add.text(420, 850, `Returning to the home screen in ... ${this.count}s`, 
           {
-            font: "50px Arial", 
+            font: "50px Monaco", 
             fill: "#ffffff"
         });
         this.countdownEl.depth = 3;

@@ -312,8 +312,8 @@ class Scene2 extends Phaser.Scene {
 class Scene3 extends Phaser.Scene {
     constructor () {
         super('playGame');
-        var hole_coor = hole_coordinates()
-        // this.body1 = new Phaser.Geom.Polygon(hole_coor);
+        let hole_coor = hole_coordinates()
+        this.body1 = new Phaser.Geom.Polygon(hole_coor);
 
 
         this.body1 = new Phaser.Geom.Polygon([
@@ -352,6 +352,8 @@ class Scene3 extends Phaser.Scene {
         this.load.image('allblack', 'assets/images/hole.webp');
     }
     create() {
+        let hole_coor = hole_coordinates()
+        this.body1 = new Phaser.Geom.Polygon(hole_coor);
         this.tile = this.add.sprite(window.innerWidth / 2, window.innerHeight / 2, 'wall');
         // tile.setOrigin(0.5);
 
@@ -488,60 +490,155 @@ function handCheck() {
 
 function hole_coordinates() {
   var max = 4;
-  //var num = Math.floor(Math.random() * max) + 1;
-  var num = 5;
+  var num = Math.floor(Math.random() * max) + 1;
+  //var num = 15;
   switch (num) {
-    case 1: // person
+    case 1: // person center
       var coordinates = [
-        60, -40,
-        250,-40,
-        250,0,
-        60,0,
-        60,200,
-        60,380,
-        10,380,
-        10,200,
-        -10,200,
-        -10,380,
-        -60,380,
-        -60,200,
-        -60,0,
-        -250,0,
-        -250,-40,
-        -60,-40,
-      ];
+        900, 380, 
+        1020, 380, 
+        1020, 500, 
+        1210, 500, 
+        1210, 590, 
+        1020, 590, 
+        1020, 740, 
+        1020, 920, 
+        900, 920, 
+        900, 740, 
+        900, 590, 
+        710, 590, 
+        710, 500, 
+        900, 500
+      ]
       break;
     case 2: // center rectangle
-      var coordinates = [
-        -100, -200,
-        -100, 400,
-        100, 400,
-        100, -200,
-      ];
-      break;
-    case 3: // left rectangle
-      var coordinates = [
-        -500, -200,
-        -500, 400,
-        -300, 400,
-        -300, -200,
-      ];
-      break;
-    case 4: // right rectangle
-      var coordinates = [
-        300, -200,
-        300, 400,
-        500, 400,
-        500, -200,
-      ];
-      break;
-    case 5: // center rectangle #2
       var coordinates = [
         810, 300,
         810, 900,
         1110, 900,
         1110, 300,
       ];
+      break;
+    case 3: // left rectangle
+      var coordinates = [
+        410, 300,
+        410, 900,
+        710, 900,
+        710, 300,
+      ];
+      break;
+    case 4: // right rectangle
+      var coordinates = [
+        1210, 300,
+        1210, 900,
+        1510, 900,
+        1510, 300,
+      ];
+      break;
+    case 5: // center triangle
+      var coordinates = [
+        710, 900,
+        1210, 900,
+        960, 200,
+      ];
+      break;
+    case 6: // left triangle
+      var coordinates = [
+        310, 900,
+        810, 900,
+        560, 200,
+      ];
+      break;
+    case 7: // right triangle
+      var coordinates = [
+        1110, 900,
+        1610, 900,
+        1360, 200,
+      ];
+      break;
+    case 8: // center square
+      var coordinates = [
+        810, 500,
+        810, 900,
+        1110, 900,
+        1110, 500,
+      ];
+      break;
+    case 9: // left square
+      var coordinates = [
+        410, 500,
+        410, 900,
+        710, 900,
+        710, 500,
+      ];
+      break;
+    case 10: // right square
+      var coordinates = [
+        1210, 500,
+        1210, 900,
+        1510, 900,
+        1510, 500,
+      ];
+      break;
+    case 11: // center quadrilateral
+      var coordinates = [
+        710, 900,
+        1210, 900,
+        1060, 500,
+        850, 500,
+      ];
+      break;
+    case 12: // left quadrilateral
+      var coordinates = [
+        310, 900,
+        810, 900,
+        660, 500,
+        450, 500,
+      ];
+      break;
+    case 13: // right quadrilateral
+      var coordinates = [
+        1110, 900,
+        1610, 900,
+        1460, 500,
+        1250, 500,
+      ];
+      break;
+    case 14: // person left
+      var coordinates = [
+        500, 380, 
+        620, 380, 
+        620, 500, 
+        810, 500, 
+        810, 590, 
+        620, 590, 
+        620, 740, 
+        620, 920, 
+        500, 920, 
+        500, 740, 
+        500, 590, 
+        310, 590, 
+        310, 500, 
+        500, 500
+      ]
+      break;
+    case 15: // person right
+      var coordinates = [
+        1300, 380, 
+        1420, 380, 
+        1420, 500, 
+        1610, 500, 
+        1610, 590, 
+        1420, 590, 
+        1420, 740, 
+        1420, 920, 
+        1300, 920, 
+        1300, 740, 
+        1300, 590, 
+        1110, 590, 
+        1110, 500, 
+        1300, 500
+      ]
       break;
   };
   return coordinates;

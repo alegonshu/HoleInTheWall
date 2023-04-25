@@ -240,11 +240,8 @@ class Scene2 extends Phaser.Scene {
         this.load.image("background", "assets/images/hole-bg.png");
     }
     create() {
-        // this.background = this.add.image(0, 0, "background");
-        // this.background.setOrigin(0, 0);
-        // this.background.displayHeight = window.innerHeight;
-        // this.background.displayWidth = window.innerWidth;
 
+        score = 0;
         this.add.text(200,100, "INSTRUCTIONS", {
           font: "70px Title", 
           fill: "#000000"
@@ -329,6 +326,7 @@ class Scene3 extends Phaser.Scene {
 
         this.score = null;
         this.count = 10; 
+        this.continue = false;
         this.body1 = new Phaser.Geom.Polygon([
           300, 300,
           1000, 300,
@@ -406,10 +404,9 @@ class Scene3 extends Phaser.Scene {
         var hole = this.children.getByName("hole");
         let state = true;
 
-        if (this.count === 0) {
+        if (this.count === 0 && this.continue == false) {
           console.log("Loading gameover");
           this.scene.start('Over');
-          
         }
         else{
         if (body_coor !=  null && (Object.keys(body_coor.length != 0))) {
@@ -436,11 +433,15 @@ class Scene3 extends Phaser.Scene {
           if (state == true) {
             console.log(`state is ${state}`);
             body_color = "rgba(0, 0, 250, 0.8)";
-            setTimeout(() => {
-              console.log("waiting sec");
-              this.scene.start('Continue');
-              
-            }, 2000);
+            if (this.continue != true) {
+
+                this.continue = true;
+                setTimeout(() => {
+                  console.log("waiting sec");
+                  this.scene.start('Continue');
+                }, 2000);
+
+            }
           }
           else {
             body_color = "rgba(64, 224, 208 , 0.8)";

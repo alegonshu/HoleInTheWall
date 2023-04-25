@@ -69,8 +69,8 @@ let frames = {
       // let body_id = frame.people[0].body_id;
       // let closest = frame.people[0].joints[0].position.z;
       for (person of frame.people) {
-        //console.log(person.joints[14].position.y)
-        //console.log(person.joints[12].position.y)
+        console.log(person.joints[14].position.y)
+        console.log(person.joints[12].position.y)
       if (person.joints[14].position.y < person.joints[12].position.y) {
       // if (person.joints[0].position.z < closest) {
         body_id = person.body_id;
@@ -316,7 +316,7 @@ class Scene2 extends Phaser.Scene {
 
         }
         this.input.keyboard.on('keydown-ENTER', () => {
-          this.scene.start('playGame');
+          this.scene.start('Continue');
         });
     }
 }
@@ -458,6 +458,7 @@ class Scene4 extends Phaser.Scene {
   constructor () {
       super('Continue');
       this.count = 4;
+      this.updated = false;
 
   }
 
@@ -469,7 +470,11 @@ class Scene4 extends Phaser.Scene {
       // this.background.setOrigin(0, 0);
       // this.background.displayHeight = window.innerHeight;
       // this.background.displayWidth = window.innerWidth;
+      
+      if (this.updated != true) {
       score += 1;
+      this.updated = true;
+      }
       this.scene.stop('playGame');
       this.scene.stop('Over');
       body_color = "rgba(64, 224, 208 , 0.8)";

@@ -96,8 +96,8 @@ let frames = {
       if (person.body_id === bodyID) {
         for (let part in body_index) {
             let index = body_index[part];
-            let x = window.innerWidth - (person.joints[index].pixel.x);
-            let y = (person.joints[index].pixel.y);
+            let x = window.innerWidth - ((person.joints[index].pixel.x)/1280 * 1920);
+            let y = ((person.joints[index].pixel.y)/720) * 1080;
             coordinates[part] = [x, y]
           }
           added = true;
@@ -226,8 +226,8 @@ class Scene2 extends Phaser.Scene {
 
         this.hole = new Phaser.Geom.Polygon([
           810, 300,
-          810, 900,
-          1110, 900,
+          810, 1050,
+          1110, 1050,
           1110, 300,
         ]);
     }
@@ -316,12 +316,12 @@ class Scene3 extends Phaser.Scene {
         this.body1 = new Phaser.Geom.Polygon(hole_coor);
 
 
-        // this.body1 = new Phaser.Geom.Polygon([
-        //   300, 300,
-        //   1000, 300,
-        //   1000, 900,
-        //   300, 900,
-        // ]);
+        this.body1 = new Phaser.Geom.Polygon([
+          300, 300,
+          1000, 300,
+          1000, 900,
+          300, 900,
+        ]);
       //   this.body1 = new Phaser.Geom.Polygon([
       //     60 + 700, -40 + 300,
       //     250 + 700, -40 + 300,
@@ -339,7 +339,7 @@ class Scene3 extends Phaser.Scene {
       //     -250 + 700, 0 + 300,
       //     -250 + 700, -40 + 300,
       //     -60 + 700, -40 + 300,
-      // ]);
+      // ]);x
 
       //   this.head = new Phaser.Geom.Circle(0, -100,60);
       // this.hole = new Hole(this);
@@ -426,6 +426,7 @@ class Scene3 extends Phaser.Scene {
           if (state) {
             body_color = "rgba(0, 0, 250, 0.8)";
             setTimeout(() => {
+              hole.clear();
               this.scene.start('Continue');
             }, 1000);
             // this.scene.start('Continue');
@@ -441,9 +442,7 @@ class Scene3 extends Phaser.Scene {
 class Scene4 extends Phaser.Scene {
   constructor () {
       super('Continue');
-
-
-
+      
   }
 
   preload() {
@@ -460,10 +459,29 @@ class Scene4 extends Phaser.Scene {
         fill: "#000000"
     });
 
-    setTimeout(() => {
-          this.scene.start('playGame');
-    }, 3000);  
-  
+    let count = 7; // initial countdown value in seconds
+        const countdownEl = this.add.text(10, 10, count, { fontFamily: 'Arial', fontSize: 24, color: '#ffffff' });
+    
+        function updatetime() {
+          count--;
+          countdownEl.setText(count);
+          if (count === 0) {
+            this.time.removeEvent(timer); // stop the timer when countdown reaches 0
+          }
+        }
+    
+        const timer = this.time.addEvent({
+          delay: 1000, // repeat every 1000 milliseconds (1 second)
+          callback: updatetime,
+          callbackScope: this,
+          loop: true
+        });
+
+  }
+  update() {
+    if (count === 0) {
+      this.scene.start('playGame');
+    }
   }
 }
 

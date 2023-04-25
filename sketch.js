@@ -515,7 +515,7 @@ class Scene4 extends Phaser.Scene {
   }
   update() {
     if (this.count === 0) {
-      this.update = false;
+      this.updated = false;
       this.scene.start('playGame');
     }
   }

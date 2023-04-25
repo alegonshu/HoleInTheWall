@@ -512,24 +512,29 @@ class Scene5 extends Phaser.Scene {
   }
 
   preload() {
-      this.load.image("background", "assets/images/hole-bg.png");
+      this.load.image("gameover", "assets/images/gameover.jpeg");
   }
   create() {
+    this.background = this.add.image(0, 0, "gameover");
+    this.background.setOrigin(0, 0);
+    this.background.displayHeight = window.innerHeight;
+    this.background.displayWidth = window.innerWidth;
+    this.background.depth = 0;
 
-      body_color = "rgba(64, 224, 208 , 0.8)";
-      this.add.text(450,100, "Game Over", {
-        font: "100px Arial", 
-        fill: "#000000"
-    });
-      this.add.text(450,200, "Raise your hand to restart", {
-        font: "100px Arial", 
-        fill: "#000000"
+    //   body_color = "rgba(64, 224, 208 , 0.8)";
+    //   this.add.text(450,100, "Game Over", {
+    //     font: "100px Arial", 
+    //     fill: "#000000"
+    // });
+      this.add.text(700,750, "Raise your hand to restart", {
+        font: "50px Arial", 
+        fill: "#ffffff"
     });
         this.count = 10;
-        this.countdownEl = this.add.text(700, 500, `Returning to the home screen in ... ${this.count}s`, 
+        this.countdownEl = this.add.text(570, 850, `Returning to the home screen in ... ${this.count}s`, 
           {
             font: "50px Arial", 
-            fill: "#000000"
+            fill: "#ffffff"
         });
         this.countdownEl.depth = 3;
     

@@ -249,11 +249,11 @@ class Scene2 extends Phaser.Scene {
           fill: "#000000"
       });
 
-        this.add.text(500,200, "A brick wall with a black hole will appear on the screen.", {
+        this.add.text(200,200, "A brick wall with a black hole will appear on the screen.", {
             font: "35px Monaco", 
             fill: "#ff0044"
         });
-        this.add.text(500,300, "Position yourself such that you fit through the hole before the timer ends.", {
+        this.add.text(200,300, "Position yourself such that you fit through the hole before the timer ends.", {
             font: "35px Monaco", 
             fill: "#ff0044"
         });

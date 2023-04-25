@@ -39,6 +39,9 @@ let frames = {
     frames.socket.onmessage = function (event) {
 
       if (bodyID === null) {
+        console.log('clearing canvas');
+        const ctx = canvas.getContext("2d");
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
         bodyID = frames.get_body_id(JSON.parse(event.data));
       }
       else {
@@ -69,8 +72,9 @@ let frames = {
       // let body_id = frame.people[0].body_id;
       // let closest = frame.people[0].joints[0].position.z;
       for (person of frame.people) {
-        console.log(person.joints[14].position.y)
-        console.log(person.joints[12].position.y)
+        console.log(person.body_id);
+        console.log(person.joints[14].position.y);
+        console.log(person.joints[12].position.y);
       if (person.joints[14].position.y < person.joints[12].position.y) {
       // if (person.joints[0].position.z < closest) {
         body_id = person.body_id;
@@ -104,7 +108,7 @@ let frames = {
           added = true;
       }
     }
-    // console.log(coordinates);
+    console.log(coordinates); 
       if (!added) {
         console.log("No matching body ID");
         // bodyID = null;
@@ -192,6 +196,7 @@ let frames = {
         this.load.image("background", "assets/images/hole-bg.png");
     }
     create() {
+        this.scene.stop('Instructions');
         this.background = this.add.image(0, 0, "background");
         this.background.setOrigin(0, 0);
         this.background.displayHeight = window.innerHeight;
@@ -309,6 +314,8 @@ class Scene2 extends Phaser.Scene {
       }
       else {
         state = false;
+        bodyID = null;
+        this.scene.start('startGame');
       }
       if (state == true) {
         //console.log("You are in the hole");
@@ -316,7 +323,7 @@ class Scene2 extends Phaser.Scene {
 
         }
         this.input.keyboard.on('keydown-ENTER', () => {
-          this.scene.start('Continue');
+          this.scene.start('playGame');
         });
     }
 }
@@ -534,6 +541,7 @@ class Scene5 extends Phaser.Scene {
   create() {
       this.scene.stop('playGame');
       this.scene.stop('Continue');
+      bodyID = null;
 
     this.background = this.add.image(0, 0, "gameover");
     this.background.setOrigin(0, 0);
@@ -585,6 +593,7 @@ class Scene5 extends Phaser.Scene {
 
   }
   update() {
+    
     if (handCheck()) {
         setTimeout(() => {
             if (verify) {

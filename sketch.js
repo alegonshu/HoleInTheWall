@@ -197,12 +197,12 @@ let frames = {
         this.background.displayHeight = window.innerHeight;
         this.background.displayWidth = window.innerWidth;
 
-        this.add.text(450,400, "HOLE IN THE WALL", {
+        this.add.text(400,400, "HOLE IN THE WALL", {
             font: "100px Title", 
             fill: "#ff0044"
         });
-        this.add.text(610,550, "RAISE YOUR RIGHT HAND TO PLAY", {
-            font: "30px Gameplay", 
+        this.add.text(750,600, "RAISE YOUR RIGHT HAND TO PLAY", {
+            font: "30px Monaco", 
             fill: "yellow"
         });
         
@@ -478,25 +478,28 @@ class Scene4 extends Phaser.Scene {
       this.scene.stop('playGame');
       this.scene.stop('Over');
       body_color = "rgba(64, 224, 208 , 0.8)";
-      this.add.text(450,100, "New Hole Loading", {
-        font: "100px Arial", 
+      this.add.text(450,200, "New Hole Loading", {
+        font: "80px Title", 
         fill: "#000000"
     });
         this.count = 4;
-        this.countdownEl = this.add.text(100, 100, this.count, 
+        this.countdownEl = this.add.text(900, 400, this.count, 
           {
-            font: "50px Arial", 
-            fill: "#000000"
+            font: "100px Arial", 
+            fill: "#ffffff"
         });
-        this.countdownEl.depth = 3;
+        this.countdownEl.depth = 4;
 
-        this.score = this.add.text(1000, 700, `Your current score is ${score}`, 
+        this.score = this.add.text(700, 750, `Your current score is ${score}`, 
           {
             font: "50px Arial", 
             fill: "#000000"
         });
-        this.score.depth = 3;
-    
+        this.score.depth = 4;
+        
+        this.countCircle = this.add.circle(930, 450, 100, 0x000000)
+        this.countCircle.depth = 3;
+
         function updatetime() {
           this.count--;
           this.countdownEl.setText(this.count);

@@ -316,7 +316,7 @@ class Scene2 extends Phaser.Scene {
 
         }
         this.input.keyboard.on('keydown-ENTER', () => {
-          this.scene.start('playGame');
+          this.scene.start('Continue');
         });
     }
 }
@@ -458,6 +458,7 @@ class Scene4 extends Phaser.Scene {
   constructor () {
       super('Continue');
       this.count = 4;
+      this.updated = false;
 
   }
 
@@ -469,7 +470,11 @@ class Scene4 extends Phaser.Scene {
       // this.background.setOrigin(0, 0);
       // this.background.displayHeight = window.innerHeight;
       // this.background.displayWidth = window.innerWidth;
+      
+      if (this.updated != true) {
       score += 1;
+      this.updated = true;
+      }
       this.scene.stop('playGame');
       this.scene.stop('Over');
       body_color = "rgba(64, 224, 208 , 0.8)";

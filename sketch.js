@@ -229,10 +229,10 @@ class Scene2 extends Phaser.Scene {
         super('Instructions');
 
         this.hole = new Phaser.Geom.Polygon([
-          1210, 250,
-          1210, 1050,
-          1510, 1050,
-          1510, 250,
+          210, 250,
+          210, 1050,
+          510, 1050,
+          510, 250,
         ]);
     }
 
@@ -251,7 +251,7 @@ class Scene2 extends Phaser.Scene {
             font: "30px Monaco", 
             fill: "#ff0044"
         });
-        this.add.text(550,350, "Position yourself such that you fit through the hole before the timer ends.", {
+        this.add.text(600,350, "Position yourself to fit through the hole before the timer ends.", {
             font: "30px Monaco", 
             fill: "#ff0044"
         });

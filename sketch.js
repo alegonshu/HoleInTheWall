@@ -196,12 +196,12 @@ let frames = {
         this.background.displayHeight = window.innerHeight;
         this.background.displayWidth = window.innerWidth;
 
-        this.add.text(350,300, "HOLE IN THE WALL", {
-            font: "70px Arial", 
+        this.add.text(450,450, "HOLE IN THE WALL", {
+            font: "100px Title", 
             fill: "#ff0044"
         });
-        this.add.text(500,400, "RAISE YOUR RIGHT HAND TO PLAY", {
-            font: "30px Arial", 
+        this.add.text(610,550, "RAISE YOUR RIGHT HAND TO PLAY", {
+            font: "30px Gameplay", 
             fill: "yellow"
         });
         
@@ -228,10 +228,10 @@ class Scene2 extends Phaser.Scene {
         super('Instructions');
 
         this.hole = new Phaser.Geom.Polygon([
-          810, 450,
-          810, 1200,
-          1110, 1200,
-          1110, 450,
+          110, 450,
+          110, 1200,
+          410, 1200,
+          410, 450,
         ]);
     }
 
@@ -244,30 +244,41 @@ class Scene2 extends Phaser.Scene {
         // this.background.displayHeight = window.innerHeight;
         // this.background.displayWidth = window.innerWidth;
 
-        this.add.text(450,30, "INSTRUCTIONS", {
-          font: "50px Arial", 
+        this.add.text(200,100, "INSTRUCTIONS", {
+          font: "70px Title", 
           fill: "#000000"
       });
 
-        this.add.text(400,100, "A brick wall with a black hole will appear on the screen.", {
-            font: "20px Arial", 
+        this.add.text(200,200, "A brick wall with a black hole will appear on the screen.", {
+            font: "35px Monaco", 
             fill: "#ff0044"
         });
-        this.add.text(400,130, "Position yourself such that you fit through the hole by the end of the time.", {
-            font: "20px Arial", 
+        this.add.text(200,300, "Position yourself such that you fit through the hole before the timer ends.", {
+            font: "35px Monaco", 
             fill: "#ff0044"
         });
-        this.add.text(400,160, "Be quick and precise to avoid being hit by the walls.", {
-            font: "20px Arial", 
+        this.add.text(600,400, "Move left or right to change your position on the screen", {
+          font: "35px Monaco",
+          fill: "#ff0044",
+          fontStyle: "italic"
+        });
+        this.add.text(600,500, "Move toward or away from the screen to change character size", {
+          font: "35px Monaco", 
+          fill: "#ff0044",
+          fontStyle: "italic"
+        });
+        this.add.text(500,600, "Be quick and precise to avoid being hit by the walls.", {
+            font: "35px Monaco", 
             fill: "#ff0044"
         });
-        this.add.text(400,190, "Good luck and have fun!", {
-            font: "20px Arial", 
+        this.add.text(500,700, "Good luck and have fun!", {
+            font: "35px Monaco", 
             fill: "#ff0044"
         });
-        this.add.text(450,220, "Position yourself in the hole to begin", {
-          font: "25px Arial", 
-          fill: "#000000"
+        this.add.text(500,900, "<- Position yourself in the hole on the left to begin...", {
+          font: "35px Monaco", 
+          fill: "#000000",
+          fontWeight: "bold"
       });
           
         this.graphics = this.add.graphics();
@@ -278,8 +289,6 @@ class Scene2 extends Phaser.Scene {
         this.graphics.fillStyle(0x000000, 1);
         this.graphics.lineStyle(4, 0x000000, 1);
         this.graphics.fillPoints(this.hole.points, true);
-
-
         
     }
     update() {
@@ -317,35 +326,13 @@ class Scene3 extends Phaser.Scene {
     constructor () {
         super('playGame');
 
-        this.count = 7;
+        this.count = 10; 
         this.body1 = new Phaser.Geom.Polygon([
           300, 300,
           1000, 300,
           1000, 900,
           300, 900,
         ]);
-      //   this.body1 = new Phaser.Geom.Polygon([
-      //     60 + 700, -40 + 300,
-      //     250 + 700, -40 + 300,
-      //     250 + 700, 0 + 300,
-      //     60 + 700, 0 + 300,
-      //     60 + 700, 200 + 300,
-      //     60 + 700, 380 + 300,
-      //     10 + 700, 380 + 300,
-      //     10 + 700, 200 + 300,
-      //     -10 + 700, 200 + 300,
-      //     -10 + 700, 380 + 300,
-      //     -60 + 700, 380 + 300,
-      //     -60 + 700, 200 + 300,
-      //     -60 + 700, 0 + 300,
-      //     -250 + 700, 0 + 300,
-      //     -250 + 700, -40 + 300,
-      //     -60 + 700, -40 + 300,
-      // ]);x
-
-      //   this.head = new Phaser.Geom.Circle(0, -100,60);
-      // this.hole = new Hole(this);
-      // this.hole.render();
     }
     
 
@@ -360,8 +347,6 @@ class Scene3 extends Phaser.Scene {
         this.tile = this.add.sprite(window.innerWidth / 2, window.innerHeight / 2, 'wall');
         // tile.setOrigin(0.5);
 
-        // this.tile.scaleX = 0.08;
-        // this.tile.scaleY = 0.08;
         this.tile.displayHeight = window.innerHeight;
         this.tile.displayWidth = window.innerWidth;
         this.tile.depth = 0;
@@ -370,8 +355,6 @@ class Scene3 extends Phaser.Scene {
         this.graphics = this.add.graphics();
         this.graphics.setName("hole");
         this.graphics.depth = 2;
-        // this.graphics.x = window.innerWidth / 2;
-        // this.graphics.y = window.innerHeight /2;
         this.graphics.scaleX = 1;
         this.graphics.scaleY = 1;
 
@@ -379,7 +362,7 @@ class Scene3 extends Phaser.Scene {
         this.graphics.lineStyle(4, 0x000000, 1);
         this.graphics.fillPoints(this.body1.points, true);
 
-        this.count = 7;
+        this.count = 10;
         this.countdownEl = this.add.text(400, 100, this.count, 
           {
             font: "100px Arial", 
@@ -413,9 +396,11 @@ class Scene3 extends Phaser.Scene {
         let state = true;
 
         if (this.count === 0) {
+          console.log("Loading gameover");
           this.scene.start('Over');
+          
         }
-        else {
+        else{
         if (body_coor !=  null && (Object.keys(body_coor.length != 0))) {
 
           //console.log(this.body1.points);
@@ -443,13 +428,14 @@ class Scene3 extends Phaser.Scene {
             setTimeout(() => {
               console.log("waiting sec");
               this.scene.start('Continue');
+              
             }, 2000);
           }
           else {
             body_color = "rgba(64, 224, 208 , 0.8)";
           }
-        }
         
+        }
     }
 }
 
@@ -468,6 +454,7 @@ class Scene4 extends Phaser.Scene {
       // this.background.setOrigin(0, 0);
       // this.background.displayHeight = window.innerHeight;
       // this.background.displayWidth = window.innerWidth;
+      this.scene.stop('playGame');
       body_color = "rgba(64, 224, 208 , 0.8)";
       this.add.text(450,100, "New Hole Loading", {
         font: "100px Arial", 
@@ -559,6 +546,7 @@ class Scene5 extends Phaser.Scene {
         setTimeout(() => {
             if (verify) {
                 this.scene.start('Instructions');
+
             }
         }, 1000);
     }

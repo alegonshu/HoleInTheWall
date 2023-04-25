@@ -11,3 +11,11 @@ html, body {
   left: 0;
   z-index: 1;
 }
+
+@font-face {
+  font-family: "Gameplay";
+  src: url("./assets/fonts/Gameplay.ttf");
+
+  font-family: "Title";
+  src: url('./assets/fonts/Title.ttf');
+}

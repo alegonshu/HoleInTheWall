@@ -68,8 +68,8 @@ let frames = {
       // let body_id = frame.people[0].body_id;
       // let closest = frame.people[0].joints[0].position.z;
       for (person of frame.people) {
-        console.log(person.joints[14].position.y)
-        console.log(person.joints[12].position.y)
+        //console.log(person.joints[14].position.y)
+        //console.log(person.joints[12].position.y)
       if (person.joints[14].position.y < person.joints[12].position.y) {
       // if (person.joints[0].position.z < closest) {
         body_id = person.body_id;
@@ -285,14 +285,14 @@ class Scene2 extends Phaser.Scene {
 
       if (body_coor != null && (Object.keys(body_coor.length != 0))) {
 
-        console.log(this.hole.points);
+        //console.log(this.hole.points);
 
         for (let part in body_index) {
           let current_point = new Phaser.Geom.Point(body_coor[part][0], body_coor[part][1]);
 
           if (!Phaser.Geom.Polygon.ContainsPoint(this.hole, current_point)) 
           {
-            console.log(`${part}: ${body_coor[part]} is not in the hole`);
+            //console.log(`${part}: ${body_coor[part]} is not in the hole`);
             state = false;
           }
         }
@@ -301,7 +301,7 @@ class Scene2 extends Phaser.Scene {
         state = false;
       }
       if (state == true) {
-        console.log("You are in the hole");
+        //console.log("You are in the hole");
         this.scene.start('playGame');
 
         }
@@ -313,16 +313,16 @@ class Scene2 extends Phaser.Scene {
 class Scene3 extends Phaser.Scene {
     constructor () {
         super('playGame');
-        let hole_coor = hole_coordinates()
-        this.body1 = new Phaser.Geom.Polygon(hole_coor);
+        // let hole_coor = hole_coordinates()
+        // this.body1 = new Phaser.Geom.Polygon(hole_coor);
 
 
-        // this.body1 = new Phaser.Geom.Polygon([
-        //   300, 300,
-        //   1000, 300,
-        //   1000, 900,
-        //   300, 900,
-        // ]);
+        this.body1 = new Phaser.Geom.Polygon([
+          300, 300,
+          1000, 300,
+          1000, 900,
+          300, 900,
+        ]);
       //   this.body1 = new Phaser.Geom.Polygon([
       //     60 + 700, -40 + 300,
       //     250 + 700, -40 + 300,
@@ -354,6 +354,7 @@ class Scene3 extends Phaser.Scene {
     }
     create() {
         let hole_coor = hole_coordinates()
+        console.log(hole_coor);
         this.body1 = new Phaser.Geom.Polygon(hole_coor);
         this.tile = this.add.sprite(window.innerWidth / 2, window.innerHeight / 2, 'wall');
         // tile.setOrigin(0.5);
@@ -364,6 +365,7 @@ class Scene3 extends Phaser.Scene {
         this.tile.displayWidth = window.innerWidth;
         this.tile.depth = 0;
 
+        //this.graphics.clear();
         this.graphics = this.add.graphics();
         this.graphics.setName("hole");
         this.graphics.depth = 2;
@@ -408,7 +410,7 @@ class Scene3 extends Phaser.Scene {
 
         if (body_coor !=  null && (Object.keys(body_coor.length != 0))) {
 
-          console.log(this.body1.points);
+          //console.log(this.body1.points);
 
           for (let part in body_index) {
             let current_point = new Phaser.Geom.Point(body_coor[part][0], body_coor[part][1]);
@@ -416,10 +418,10 @@ class Scene3 extends Phaser.Scene {
             if (!Phaser.Geom.Polygon.ContainsPoint(this.body1, current_point)) 
             {
               state = false;
-              console.log(`${part}:${current_point.x}) not in hole`);
+              //console.log(`${part}:${current_point.x}) not in hole`);
             }
             else {
-              console.log(`${part}:(${current_point.x}) in hole`);
+              //console.log(`${part}:(${current_point.x}) in hole`);
             }
           }
         }
@@ -461,8 +463,8 @@ class Scene4 extends Phaser.Scene {
         font: "50px Arial", 
         fill: "#000000"
     });
-
-        this.countdownEl = this.add.text(10, 10, this.count, { fontFamily: 'Arial', fontSize: 24, color: '#ffffff' });
+        this.count = 7;
+        this.countdownEl = this.add.text(100, 100, this.count, { fontFamily: 'Arial', fontSize: 70, color: '#ffffff' });
         this.countdownEl.depth = 3;
     
         function updatetime() {

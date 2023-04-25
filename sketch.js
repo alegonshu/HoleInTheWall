@@ -312,7 +312,7 @@ class Scene2 extends Phaser.Scene {
 class Scene3 extends Phaser.Scene {
     constructor () {
         super('playGame');
-        var hole_coor = hole_coordinates()
+        let hole_coor = hole_coordinates()
         this.body1 = new Phaser.Geom.Polygon(hole_coor);
 
 
@@ -352,6 +352,8 @@ class Scene3 extends Phaser.Scene {
         this.load.image('allblack', 'assets/images/hole.webp');
     }
     create() {
+        let hole_coor = hole_coordinates()
+        this.body1 = new Phaser.Geom.Polygon(hole_coor);
         this.tile = this.add.sprite(window.innerWidth / 2, window.innerHeight / 2, 'wall');
         // tile.setOrigin(0.5);
 

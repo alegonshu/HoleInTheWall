@@ -244,8 +244,8 @@ class Scene2 extends Phaser.Scene {
         // this.background.displayHeight = window.innerHeight;
         // this.background.displayWidth = window.innerWidth;
 
-        this.add.text(500,100, "INSTRUCTIONS", {
-          font: "50px Title", 
+        this.add.text(200,100, "INSTRUCTIONS", {
+          font: "70px Title", 
           fill: "#000000"
       });
 

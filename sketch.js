@@ -14,8 +14,6 @@ let body_index = {
   'HEAD': 26,
   'WRIST_LEFT': 7,
   'WRIST_RIGHT': 14,
-  // 'FOOT_LEFT': 21,
-  // 'FOOT_RIGHT': 25,
   'HIP_LEFT': 18,
   'KNEE_LEFT': 19,
   'ANKLE_LEFT': 20,
@@ -69,16 +67,14 @@ let frames = {
     }
     else{
       let body_id = null;
-      // let body_id = frame.people[0].body_id;
-      // let closest = frame.people[0].joints[0].position.z;
       for (person of frame.people) {
         console.log(person.body_id);
         console.log(person.joints[14].position.y);
         console.log(person.joints[12].position.y);
+
       if (person.joints[14].position.y < person.joints[12].position.y) {
-      // if (person.joints[0].position.z < closest) {
+
         body_id = person.body_id;
-        // closest = person.joints[0].position.z;
       }
     }
     console.log(`Changed body_id to ${body_id}`);
@@ -93,7 +89,6 @@ let frames = {
 
     if (frame.people.length < 1) {
       console.log("No body detected");
-      // bodyID = null;
       return null;
     }
     for (person of frame.people) {
@@ -353,13 +348,11 @@ class Scene3 extends Phaser.Scene {
         // console.log(hole_coor);
         this.body1 = new Phaser.Geom.Polygon(hole_coor);
         this.tile = this.add.sprite(window.innerWidth / 2, window.innerHeight / 2, 'wall');
-        // tile.setOrigin(0.5);
 
         this.tile.displayHeight = window.innerHeight;
         this.tile.displayWidth = window.innerWidth;
         this.tile.depth = 0;
 
-        //this.graphics.clear();
         this.graphics = this.add.graphics();
         this.graphics.setName("hole");
         this.graphics.depth = 2;
@@ -470,10 +463,7 @@ class Scene4 extends Phaser.Scene {
       this.load.image("background", "assets/images/hole-bg.png");
   }
   create() {
-      // this.background = this.add.image(0, 0, "background");
-      // this.background.setOrigin(0, 0);
-      // this.background.displayHeight = window.innerHeight;
-      // this.background.displayWidth = window.innerWidth;
+
       
       if (this.updated != true) {
         score += 1;
@@ -549,11 +539,6 @@ class Scene5 extends Phaser.Scene {
     this.background.displayWidth = window.innerWidth;
     this.background.depth = 0;
 
-    //   body_color = "rgba(64, 224, 208 , 0.8)";
-    //   this.add.text(450,100, "Game Over", {
-    //     font: "100px Arial", 
-    //     fill: "#000000"
-    // });
       this.add.text(550,800, "Raise your hand to restart", {
         font: "50px Monaco", 
         fill: "#ffffff"

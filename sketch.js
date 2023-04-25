@@ -43,9 +43,12 @@ let frames = {
       else {
         let coordinates = frames.get_body_coordinates(JSON.parse(event.data));
         body_coor = coordinates;
-        if (coordinates !== null && coordinates !== {}) {
+        if (body_coor != null && (Object.keys(body_coor.length != 0))) {
+          console.log(`Drawing body with coordinates:`);
+          console.log(body_coor);
+          console.log(body_coor.length);
+          drawBody(body_coor);
           
-          drawBody(coordinates);
         }
         else {
           console.log("No coordinates to draw");
@@ -57,16 +60,20 @@ let frames = {
   get_body_id: function (frame) {
     if (frame.people.length < 1) {
       console.log("No body id");
+      bodyID = null;
       return null;
     }
     else{
-      let body_id = frame.people[0].body_id;
-      let closest = frame.people[0].joints[0].position.z;
+      let body_id = null;
+      // let body_id = frame.people[0].body_id;
+      // let closest = frame.people[0].joints[0].position.z;
       for (person of frame.people) {
-        // console.log(person);
-      if (person.joints[0].position.z < closest) {
+        console.log(person.joints[14].position.y)
+        console.log(person.joints[12].position.y)
+      if (person.joints[14].position.y < person.joints[12].position.y) {
+      // if (person.joints[0].position.z < closest) {
         body_id = person.body_id;
-        closest = person.joints[0].position.z;
+        // closest = person.joints[0].position.z;
       }
     }
     console.log(`Changed body_id to ${body_id}`);
@@ -77,10 +84,11 @@ let frames = {
 
   get_body_coordinates: function (frame) {
     let coordinates = {};
+    let added = false;
 
     if (frame.people.length < 1) {
       console.log("No body detected");
-      bodyID = null;
+      // bodyID = null;
       return null;
     }
     for (person of frame.people) {
@@ -92,11 +100,13 @@ let frames = {
             let y = (person.joints[index].pixel.y);
             coordinates[part] = [x, y]
           }
+          added = true;
       }
     }
-    console.log(coordinates);
-      if (coordinates === {}) {
-        bodyID = null;
+    // console.log(coordinates);
+      if (!added) {
+        console.log("No matching body ID");
+        // bodyID = null;
         return null;
       }
       return coordinates;
@@ -217,8 +227,8 @@ class Scene2 extends Phaser.Scene {
         this.hole = new Phaser.Geom.Polygon([
           500, 300,
           800, 300,
-          800, 900,
-          500, 900,
+          800, 700,
+          500, 700,
         ]);
 
     }
@@ -268,17 +278,15 @@ class Scene2 extends Phaser.Scene {
         this.graphics.fillPoints(this.hole.points, true);
 
 
-        this.input.keyboard.on('keydown-ENTER', () => {
-            this.scene.start('playGame');
-          });
+        
     }
     update() {
 
       let state = true;
 
-      if (body_coor != null) {
+      if (body_coor != null && (Object.keys(body_coor.length != 0))) {
 
-        console.log(this.hole.points);
+        console.log(`Hole points ${this.hole.points}`);
 
         for (let part in body_index) {
           let current_point = new Phaser.Geom.Point(body_coor[part][0], body_coor[part][1]);
@@ -297,6 +305,9 @@ class Scene2 extends Phaser.Scene {
         this.scene.start('playGame');
 
         }
+        this.input.keyboard.on('keydown-ENTER', () => {
+          this.scene.start('playGame');
+        });
     }
 }
 class Scene3 extends Phaser.Scene {
@@ -306,30 +317,30 @@ class Scene3 extends Phaser.Scene {
         // this.body1 = new Phaser.Geom.Polygon(hole_coor);
 
 
-        // this.body1 = new Phaser.Geom.Polygon([
-        //   300, 300,
-        //   1000, 300,
-        //   1000, 900,
-        //   300, 900,
-        // ]);
         this.body1 = new Phaser.Geom.Polygon([
-          60 + 700, -40 + 300,
-          250 + 700, -40 + 300,
-          250 + 700, 0 + 300,
-          60 + 700, 0 + 300,
-          60 + 700, 200 + 300,
-          60 + 700, 380 + 300,
-          10 + 700, 380 + 300,
-          10 + 700, 200 + 300,
-          -10 + 700, 200 + 300,
-          -10 + 700, 380 + 300,
-          -60 + 700, 380 + 300,
-          -60 + 700, 200 + 300,
-          -60 + 700, 0 + 300,
-          -250 + 700, 0 + 300,
-          -250 + 700, -40 + 300,
-          -60 + 700, -40 + 300,
-      ]);
+          300, 300,
+          1000, 300,
+          1000, 900,
+          300, 900,
+        ]);
+      //   this.body1 = new Phaser.Geom.Polygon([
+      //     60 + 700, -40 + 300,
+      //     250 + 700, -40 + 300,
+      //     250 + 700, 0 + 300,
+      //     60 + 700, 0 + 300,
+      //     60 + 700, 200 + 300,
+      //     60 + 700, 380 + 300,
+      //     10 + 700, 380 + 300,
+      //     10 + 700, 200 + 300,
+      //     -10 + 700, 200 + 300,
+      //     -10 + 700, 380 + 300,
+      //     -60 + 700, 380 + 300,
+      //     -60 + 700, 200 + 300,
+      //     -60 + 700, 0 + 300,
+      //     -250 + 700, 0 + 300,
+      //     -250 + 700, -40 + 300,
+      //     -60 + 700, -40 + 300,
+      // ]);
 
       //   this.head = new Phaser.Geom.Circle(0, -100,60);
       // this.hole = new Hole(this);
@@ -393,7 +404,7 @@ class Scene3 extends Phaser.Scene {
         var hole = this.children.getByName("hole");
         let state = true;
 
-        if (body_coor != null) {
+        if (body_coor !=  null && (Object.keys(body_coor.length != 0))) {
 
           console.log(this.body1.points);
 
@@ -413,6 +424,10 @@ class Scene3 extends Phaser.Scene {
 
           if (state) {
             body_color = "rgba(0, 0, 250, 0.8)";
+            setTimeout(() => {
+              this.scene.start('Continue');
+            }, 1000);
+            // this.scene.start('Continue');
           }
           else {
             body_color = "rgba(64, 224, 208 , 0.8)";
@@ -422,8 +437,37 @@ class Scene3 extends Phaser.Scene {
     }
 }
 
+class Scene4 extends Phaser.Scene {
+  constructor () {
+      super('Continue');
+
+
+
+  }
+
+  preload() {
+      this.load.image("background", "assets/images/hole-bg.png");
+  }
+  create() {
+      // this.background = this.add.image(0, 0, "background");
+      // this.background.setOrigin(0, 0);
+      // this.background.displayHeight = window.innerHeight;
+      // this.background.displayWidth = window.innerWidth;
+      body_color = "rgba(64, 224, 208 , 0.8)";
+      this.add.text(450,30, "New Hole Loading", {
+        font: "50px Arial", 
+        fill: "#000000"
+    });
+
+    setTimeout(() => {
+          this.scene.start('playGame');
+    }, 3000);  
+  
+  }
+}
+
 function handCheck() {
-    if ((body_coor != undefined) && (body_coor != null) && (body_coor != {}) && (Object.keys(body_coor.length != 0))) {
+    if ((body_coor != undefined) && (body_coor != null) && (Object.keys(body_coor.length != 0))) {
             if  (body_coor['WRIST_RIGHT'][1] != undefined && body_coor['WRIST_LEFT'][1] != undefined 
                   && body_coor['SHOULDER_RIGHT'][1] != undefined && body_coor['SHOULDER_LEFT'][1] != undefined) 
             {
@@ -501,7 +545,7 @@ const config = {
     height: window.innerHeight,
     width: window.innerWidth,
     backgroundColor: '#FFFFFF',
-    scene: [Scene1, Scene2, Scene3]
+    scene: [Scene1, Scene2, Scene3, Scene4]
 }
 
 window.onload = function() {

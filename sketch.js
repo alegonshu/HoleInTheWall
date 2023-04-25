@@ -201,7 +201,7 @@ let frames = {
             font: "100px Title", 
             fill: "#ff0044"
         });
-        this.add.text(610,550, "RAISE YOUR RIGHT HAND TO PLAY", {
+        this.add.text(610,550, "RAISE YOUR HAND TO PLAY", {
             font: "30px Gameplay", 
             fill: "yellow"
         });
@@ -370,6 +370,8 @@ class Scene3 extends Phaser.Scene {
             font: "50px Arial", 
             fill: "#000000"
         });
+        this.score.depth = 3;
+
         this.count = 10;
         this.countdownEl = this.add.text(400, 100, this.count, 
           {
@@ -434,7 +436,6 @@ class Scene3 extends Phaser.Scene {
           if (state == true) {
             console.log(`state is ${state}`);
             body_color = "rgba(0, 0, 250, 0.8)";
-            score += 1;
             setTimeout(() => {
               console.log("waiting sec");
               this.scene.start('Continue');
@@ -464,6 +465,7 @@ class Scene4 extends Phaser.Scene {
       // this.background.setOrigin(0, 0);
       // this.background.displayHeight = window.innerHeight;
       // this.background.displayWidth = window.innerWidth;
+      score += 1;
       this.scene.stop('playGame');
       this.scene.stop('Over');
       body_color = "rgba(64, 224, 208 , 0.8)";

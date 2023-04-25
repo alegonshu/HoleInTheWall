@@ -313,15 +313,15 @@ class Scene3 extends Phaser.Scene {
     constructor () {
         super('playGame');
         var hole_coor = hole_coordinates()
-        this.body1 = new Phaser.Geom.Polygon(hole_coor);
+        // this.body1 = new Phaser.Geom.Polygon(hole_coor);
 
 
-        // this.body1 = new Phaser.Geom.Polygon([
-        //   300, 300,
-        //   1000, 300,
-        //   1000, 900,
-        //   300, 900,
-        // ]);
+        this.body1 = new Phaser.Geom.Polygon([
+          300, 300,
+          1000, 300,
+          1000, 900,
+          300, 900,
+        ]);
       //   this.body1 = new Phaser.Geom.Polygon([
       //     60 + 700, -40 + 300,
       //     250 + 700, -40 + 300,
@@ -339,7 +339,7 @@ class Scene3 extends Phaser.Scene {
       //     -250 + 700, 0 + 300,
       //     -250 + 700, -40 + 300,
       //     -60 + 700, -40 + 300,
-      // ]);
+      // ]);x
 
       //   this.head = new Phaser.Geom.Circle(0, -100,60);
       // this.hole = new Hole(this);

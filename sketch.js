@@ -13,8 +13,8 @@ let body_index = {
   'HEAD': 26,
   'WRIST_LEFT': 7,
   'WRIST_RIGHT': 14,
-  'FOOT_LEFT': 21,
-  'FOOT_RIGHT': 25,
+  // 'FOOT_LEFT': 21,
+  // 'FOOT_RIGHT': 25,
   'HIP_LEFT': 18,
   'KNEE_LEFT': 19,
   'ANKLE_LEFT': 20,
@@ -317,12 +317,12 @@ class Scene3 extends Phaser.Scene {
         this.body1 = new Phaser.Geom.Polygon(hole_coor);
 
 
-        this.body1 = new Phaser.Geom.Polygon([
-          300, 300,
-          1000, 300,
-          1000, 900,
-          300, 900,
-        ]);
+        // this.body1 = new Phaser.Geom.Polygon([
+        //   300, 300,
+        //   1000, 300,
+        //   1000, 900,
+        //   300, 900,
+        // ]);
       //   this.body1 = new Phaser.Geom.Polygon([
       //     60 + 700, -40 + 300,
       //     250 + 700, -40 + 300,
@@ -414,7 +414,6 @@ class Scene3 extends Phaser.Scene {
             let current_point = new Phaser.Geom.Point(body_coor[part][0], body_coor[part][1]);
 
             if (!Phaser.Geom.Polygon.ContainsPoint(this.body1, current_point)) 
-                  // && !Phaser.Geom.Circle.ContainsPoint(this.head, current_point)
             {
               state = false;
               console.log(`${part}:${current_point.x}) not in hole`);
@@ -423,11 +422,14 @@ class Scene3 extends Phaser.Scene {
               console.log(`${part}:(${current_point.x}) in hole`);
             }
           }
+        }
+        else {
+          state = false;
+        }
 
-          if (state) {
+          if (state == true) {
             body_color = "rgba(0, 0, 250, 0.8)";
             setTimeout(() => {
-              hole.clear();
               this.scene.start('Continue');
             }, 1000);
             // this.scene.start('Continue');
@@ -435,8 +437,7 @@ class Scene3 extends Phaser.Scene {
           else {
             body_color = "rgba(64, 224, 208 , 0.8)";
           }
-        }
-
+        
     }
 }
 

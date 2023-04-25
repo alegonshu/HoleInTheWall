@@ -10,10 +10,10 @@ class Scene5 extends Phaser.Scene {
         this.load.image("background", "assets/images/hole-bg.png");
     }
     create() {
-        this.background = this.add.image(0, 0, "background");
-        this.background.setOrigin(0, 0);
-        this.background.displayHeight = window.innerHeight;
-        this.background.displayWidth = window.innerWidth;
+        // this.background = this.add.image(0, 0, "background");
+        // this.background.setOrigin(0, 0);
+        // this.background.displayHeight = window.innerHeight;
+        // this.background.displayWidth = window.innerWidth;
 
         this.add.text(350,300, "GAME OVER", {
             font: "70px Arial", 

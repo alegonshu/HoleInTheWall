@@ -442,9 +442,7 @@ class Scene3 extends Phaser.Scene {
 class Scene4 extends Phaser.Scene {
   constructor () {
       super('Continue');
-
-
-
+      
   }
 
   preload() {
@@ -461,10 +459,29 @@ class Scene4 extends Phaser.Scene {
         fill: "#000000"
     });
 
-    setTimeout(() => {
-          this.scene.start('playGame');
-    }, 3000);  
-  
+    let count = 7; // initial countdown value in seconds
+        const countdownEl = this.add.text(10, 10, count, { fontFamily: 'Arial', fontSize: 24, color: '#ffffff' });
+    
+        function updatetime() {
+          count--;
+          countdownEl.setText(count);
+          if (count === 0) {
+            this.time.removeEvent(timer); // stop the timer when countdown reaches 0
+          }
+        }
+    
+        const timer = this.time.addEvent({
+          delay: 1000, // repeat every 1000 milliseconds (1 second)
+          callback: updatetime,
+          callbackScope: this,
+          loop: true
+        });
+
+  }
+  update() {
+    if (count === 0) {
+      this.scene.start('playGame');
+    }
   }
 }
 

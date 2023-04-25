@@ -196,12 +196,12 @@ let frames = {
         this.background.displayHeight = window.innerHeight;
         this.background.displayWidth = window.innerWidth;
 
-        this.add.text(450,450, "HOLE IN THE WALL", {
+        this.add.text(450,400, "HOLE IN THE WALL", {
             font: "100px Title", 
             fill: "#ff0044"
         });
         this.add.text(610,550, "RAISE YOUR RIGHT HAND TO PLAY", {
-            font: "30px Gameplay", 
+            font: "30px Monaco", 
             fill: "yellow"
         });
         

@@ -215,12 +215,11 @@ class Scene2 extends Phaser.Scene {
         super('Instructions');
 
         this.hole = new Phaser.Geom.Polygon([
-          500, 300,
-          800, 300,
-          800, 900,
-          500, 900,
+          810, 300,
+          810, 900,
+          1110, 900,
+          1110, 300,
         ]);
-
     }
 
     preload() {

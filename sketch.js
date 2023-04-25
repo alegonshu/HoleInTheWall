@@ -69,8 +69,8 @@ let frames = {
       // let body_id = frame.people[0].body_id;
       // let closest = frame.people[0].joints[0].position.z;
       for (person of frame.people) {
-        //console.log(person.joints[14].position.y)
-        //console.log(person.joints[12].position.y)
+        console.log(person.joints[14].position.y)
+        console.log(person.joints[12].position.y)
       if (person.joints[14].position.y < person.joints[12].position.y) {
       // if (person.joints[0].position.z < closest) {
         body_id = person.body_id;
@@ -198,7 +198,7 @@ let frames = {
         this.background.displayWidth = window.innerWidth;
 
         this.add.text(450,450, "HOLE IN THE WALL", {
-            font: "90px Title", 
+            font: "100px Title", 
             fill: "#ff0044"
         });
         this.add.text(610,550, "RAISE YOUR HAND TO PLAY", {

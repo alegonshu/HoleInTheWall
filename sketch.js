@@ -444,6 +444,7 @@ class Scene3 extends Phaser.Scene {
 class Scene4 extends Phaser.Scene {
   constructor () {
       super('Continue');
+      this.count = 7;
 
   }
 
@@ -461,14 +462,13 @@ class Scene4 extends Phaser.Scene {
         fill: "#000000"
     });
 
-    let count = 7; // initial countdown value in seconds
-        this.countdownEl = this.add.text(10, 10, count, { fontFamily: 'Arial', fontSize: 24, color: '#ffffff' });
+        this.countdownEl = this.add.text(10, 10, this.count, { fontFamily: 'Arial', fontSize: 24, color: '#ffffff' });
         this.countdownEl.depth = 3;
     
         function updatetime() {
-          count--;
-          this.countdownEl.setText(count);
-          if (count === 0) {
+          this.count--;
+          this.countdownEl.setText(this.count);
+          if (this.count === 0) {
             this.time.removeEvent(timer); // stop the timer when countdown reaches 0
           }
         }
@@ -482,7 +482,7 @@ class Scene4 extends Phaser.Scene {
 
   }
   update() {
-    if (count === 0) {
+    if (this.count === 0) {
       this.scene.start('playGame');
     }
   }

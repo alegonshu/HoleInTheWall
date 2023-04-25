@@ -365,20 +365,24 @@ class Scene3 extends Phaser.Scene {
         this.graphics.fillPoints(this.body1.points, true);
 
         //add score
-        this.score = this.add.text(1000, 100, `Score: ${score}`, 
+        this.score = this.add.text(875, 100, `Score: ${score}`, 
           {
-            font: "50px Arial", 
+            font: "50px Monaco", 
             fill: "#000000"
         });
+        this.score.depth = 4;
+        this.scoreRect = this.add.rectangle(1000, 125, 350, 150, 0xffffff);
+        this.scoreRect.depth = 3;
+
         this.count = 10;
-        this.countdownEl = this.add.text(400, 100, this.count, 
+        this.countdownEl = this.add.text(150, 100, this.count, 
           {
             font: "100px Arial", 
             fill: "#000000"
         });
         this.countdownEl.depth = 4;
 
-        this.countCircle = this.add.circle(425, 147, 100, 0xffffff)
+        this.countCircle = this.add.circle(175, 147, 100, 0xffffff)
         this.countCircle.depth = 3;
     
         function updatetime() {
@@ -534,21 +538,21 @@ class Scene5 extends Phaser.Scene {
     //     font: "100px Arial", 
     //     fill: "#000000"
     // });
-      this.add.text(550,750, "Raise your hand to restart", {
+      this.add.text(550,800, "Raise your hand to restart", {
         font: "50px Monaco", 
         fill: "#ffffff"
       });
         this.count = 10;
-        this.countdownEl = this.add.text(420, 850, `Returning to the home screen in ... ${this.count}s`, 
+        this.countdownEl = this.add.text(420, 900, `Returning to the home screen in ... ${this.count}s`, 
           {
             font: "50px Monaco", 
             fill: "#ffffff"
         });
         this.countdownEl.depth = 3;
         
-        this.score = this.add.text(1000, 700, `Your score was ${score}`, 
+        this.score = this.add.text(700, 700, `Your score was ${score}`, 
           {
-            font: "50px Arial", 
+            font: "50px Monaco", 
             fill: "#ffffff"
         });
         this.score.depth = 3;

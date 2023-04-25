@@ -44,9 +44,9 @@ let frames = {
         let coordinates = frames.get_body_coordinates(JSON.parse(event.data));
         body_coor = coordinates;
         if (body_coor != null && (Object.keys(body_coor.length != 0))) {
-          console.log(`Drawing body with coordinates:`);
-          console.log(body_coor);
-          console.log(body_coor.length);
+          // console.log(`Drawing body with coordinates:`);
+          // console.log(body_coor);
+          // console.log(body_coor.length);
           drawBody(body_coor);
           
         }
@@ -216,7 +216,7 @@ let frames = {
                 if (verify) {
                     this.scene.start('Instructions');
                 }
-            }, 2000);
+            }, 1000);
         }
     }
 }
@@ -354,7 +354,7 @@ class Scene3 extends Phaser.Scene {
     }
     create() {
         let hole_coor = hole_coordinates()
-        console.log(hole_coor);
+        // console.log(hole_coor);
         this.body1 = new Phaser.Geom.Polygon(hole_coor);
         this.tile = this.add.sprite(window.innerWidth / 2, window.innerHeight / 2, 'wall');
         // tile.setOrigin(0.5);
@@ -430,11 +430,12 @@ class Scene3 extends Phaser.Scene {
         }
 
           if (state == true) {
+            console.log(`state is ${state}`);
             body_color = "rgba(0, 0, 250, 0.8)";
             setTimeout(() => {
+              console.log("waiting sec");
               this.scene.start('Continue');
-            }, 1000);
-            // this.scene.start('Continue');
+            }, 2000);
           }
           else {
             body_color = "rgba(64, 224, 208 , 0.8)";
@@ -459,12 +460,16 @@ class Scene4 extends Phaser.Scene {
       // this.background.displayHeight = window.innerHeight;
       // this.background.displayWidth = window.innerWidth;
       body_color = "rgba(64, 224, 208 , 0.8)";
-      this.add.text(450,30, "New Hole Loading", {
-        font: "50px Arial", 
+      this.add.text(450,100, "New Hole Loading", {
+        font: "100px Arial", 
         fill: "#000000"
     });
         this.count = 4;
-        this.countdownEl = this.add.text(100, 100, this.count, { fontFamily: 'Arial', fontSize: 70, color: '#ffffff' });
+        this.countdownEl = this.add.text(100, 100, this.count, 
+          {
+            font: "50px Arial", 
+            fill: "#000000"
+        });
         this.countdownEl.depth = 3;
     
         function updatetime() {

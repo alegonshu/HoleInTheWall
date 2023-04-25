@@ -96,8 +96,8 @@ let frames = {
       if (person.body_id === bodyID) {
         for (let part in body_index) {
             let index = body_index[part];
-            let x = window.innerWidth - (person.joints[index].pixel.x);
-            let y = (person.joints[index].pixel.y);
+            let x = window.innerWidth - ((person.joints[index].pixel.x)/1280 * 1920);
+            let y = ((person.joints[index].pixel.y)/720) * 1080;
             coordinates[part] = [x, y]
           }
           added = true;
@@ -226,8 +226,8 @@ class Scene2 extends Phaser.Scene {
 
         this.hole = new Phaser.Geom.Polygon([
           810, 300,
-          810, 900,
-          1110, 900,
+          810, 1050,
+          1110, 1050,
           1110, 300,
         ]);
     }
@@ -426,6 +426,7 @@ class Scene3 extends Phaser.Scene {
           if (state) {
             body_color = "rgba(0, 0, 250, 0.8)";
             setTimeout(() => {
+              hole.clear();
               this.scene.start('Continue');
             }, 1000);
             // this.scene.start('Continue');

@@ -225,12 +225,11 @@ class Scene2 extends Phaser.Scene {
         super('Instructions');
 
         this.hole = new Phaser.Geom.Polygon([
-          500, 300,
-          800, 300,
-          800, 700,
-          500, 700,
+          810, 300,
+          810, 900,
+          1110, 900,
+          1110, 300,
         ]);
-
     }
 
     preload() {
@@ -314,15 +313,15 @@ class Scene3 extends Phaser.Scene {
     constructor () {
         super('playGame');
         var hole_coor = hole_coordinates()
-        // this.body1 = new Phaser.Geom.Polygon(hole_coor);
+        this.body1 = new Phaser.Geom.Polygon(hole_coor);
 
 
-        this.body1 = new Phaser.Geom.Polygon([
-          300, 300,
-          1000, 300,
-          1000, 900,
-          300, 900,
-        ]);
+        // this.body1 = new Phaser.Geom.Polygon([
+        //   300, 300,
+        //   1000, 300,
+        //   1000, 900,
+        //   300, 900,
+        // ]);
       //   this.body1 = new Phaser.Geom.Polygon([
       //     60 + 700, -40 + 300,
       //     250 + 700, -40 + 300,
@@ -489,7 +488,8 @@ function handCheck() {
 
 function hole_coordinates() {
   var max = 4;
-  var num = Math.floor(Math.random() * max) + 1;
+  //var num = Math.floor(Math.random() * max) + 1;
+  var num = 5;
   switch (num) {
     case 1: // person
       var coordinates = [
@@ -533,6 +533,14 @@ function hole_coordinates() {
         300, 400,
         500, 400,
         500, -200,
+      ];
+      break;
+    case 5: // center rectangle #2
+      var coordinates = [
+        810, 300,
+        810, 900,
+        1110, 900,
+        1110, 300,
       ];
       break;
   };

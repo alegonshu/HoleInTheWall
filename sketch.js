@@ -198,7 +198,7 @@ let frames = {
         this.background.displayWidth = window.innerWidth;
 
         this.add.text(450,450, "HOLE IN THE WALL", {
-            font: "80px Title", 
+            font: "90px Title", 
             fill: "#ff0044"
         });
         this.add.text(610,550, "RAISE YOUR HAND TO PLAY", {
@@ -341,6 +341,7 @@ class Scene3 extends Phaser.Scene {
         this.load.image('allblack', 'assets/images/hole.webp');
     }
     create() {
+        this.continue = false;
         let hole_coor = hole_coordinates()
         // console.log(hole_coor);
         this.body1 = new Phaser.Geom.Polygon(hole_coor);

@@ -1,4 +1,5 @@
 let host = "cpsc484-03.yale.internal:8888";
+let score = 0;
 var body_coor = null;
 var body_color = "rgba(64, 224, 208, 0.8) ";
 let verify = false;
@@ -317,6 +318,7 @@ class Scene3 extends Phaser.Scene {
     constructor () {
         super('playGame');
 
+        this.score = null;
         this.count = 10; 
         this.body1 = new Phaser.Geom.Polygon([
           300, 300,
@@ -353,6 +355,12 @@ class Scene3 extends Phaser.Scene {
         this.graphics.lineStyle(4, 0x000000, 1);
         this.graphics.fillPoints(this.body1.points, true);
 
+        //add score
+        this.score = this.add.text(1000, 100, `Score: ${score}`, 
+          {
+            font: "50px Arial", 
+            fill: "#000000"
+        });
         this.count = 10;
         this.countdownEl = this.add.text(400, 100, this.count, 
           {
@@ -383,6 +391,7 @@ class Scene3 extends Phaser.Scene {
     }
 
     update() {
+        this.score.setText(`Score: ${score}`);
         var hole = this.children.getByName("hole");
         let state = true;
 
@@ -416,6 +425,7 @@ class Scene3 extends Phaser.Scene {
           if (state == true) {
             console.log(`state is ${state}`);
             body_color = "rgba(0, 0, 250, 0.8)";
+            score += 1;
             setTimeout(() => {
               console.log("waiting sec");
               this.scene.start('Continue');
@@ -446,6 +456,7 @@ class Scene4 extends Phaser.Scene {
       // this.background.displayHeight = window.innerHeight;
       // this.background.displayWidth = window.innerWidth;
       this.scene.stop('playGame');
+      this.scene.stop('Over');
       body_color = "rgba(64, 224, 208 , 0.8)";
       this.add.text(450,100, "New Hole Loading", {
         font: "100px Arial", 
@@ -458,6 +469,13 @@ class Scene4 extends Phaser.Scene {
             fill: "#000000"
         });
         this.countdownEl.depth = 3;
+
+        this.score = this.add.text(1000, 700, `Your current score is ${score}`, 
+          {
+            font: "50px Arial", 
+            fill: "#000000"
+        });
+        this.score.depth = 3;
     
         function updatetime() {
           this.count--;
@@ -493,7 +511,8 @@ class Scene5 extends Phaser.Scene {
       this.load.image("background", "assets/images/hole-bg.png");
   }
   create() {
-
+      this.scene.stop('playGame');
+      this.scene.stop('Continue');
       body_color = "rgba(64, 224, 208 , 0.8)";
       this.add.text(450,100, "Game Over", {
         font: "100px Arial", 
@@ -510,7 +529,15 @@ class Scene5 extends Phaser.Scene {
             fill: "#000000"
         });
         this.countdownEl.depth = 3;
-    
+        
+        this.score = this.add.text(1000, 700, `Your score was ${score}`, 
+          {
+            font: "50px Arial", 
+            fill: "#ffffff"
+        });
+        this.score.depth = 3;
+
+
         function updatetime() {
           this.count--;
           this.countdownEl.setText(`Returning to the home screen in ... ${this.count}s`);
@@ -518,6 +545,8 @@ class Scene5 extends Phaser.Scene {
             this.time.removeEvent(timer); // stop the timer when countdown reaches 0
           }
         }
+
+        
     
         const timer = this.time.addEvent({
           delay: 1000, // repeat every 1000 milliseconds (1 second)

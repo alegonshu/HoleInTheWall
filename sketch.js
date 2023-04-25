@@ -303,7 +303,7 @@ class Scene3 extends Phaser.Scene {
     constructor () {
         super('playGame');
         var hole_coor = hole_coordinates()
-        // this.body1 = new Phaser.Geom.Polygon(hole_coor);
+        this.body1 = new Phaser.Geom.Polygon(hole_coor);
 
 
         // this.body1 = new Phaser.Geom.Polygon([
@@ -312,24 +312,24 @@ class Scene3 extends Phaser.Scene {
         //   1000, 900,
         //   300, 900,
         // ]);
-        this.body1 = new Phaser.Geom.Polygon([
-          60 + 700, -40 + 300,
-          250 + 700, -40 + 300,
-          250 + 700, 0 + 300,
-          60 + 700, 0 + 300,
-          60 + 700, 200 + 300,
-          60 + 700, 380 + 300,
-          10 + 700, 380 + 300,
-          10 + 700, 200 + 300,
-          -10 + 700, 200 + 300,
-          -10 + 700, 380 + 300,
-          -60 + 700, 380 + 300,
-          -60 + 700, 200 + 300,
-          -60 + 700, 0 + 300,
-          -250 + 700, 0 + 300,
-          -250 + 700, -40 + 300,
-          -60 + 700, -40 + 300,
-      ]);
+      //   this.body1 = new Phaser.Geom.Polygon([
+      //     60 + 700, -40 + 300,
+      //     250 + 700, -40 + 300,
+      //     250 + 700, 0 + 300,
+      //     60 + 700, 0 + 300,
+      //     60 + 700, 200 + 300,
+      //     60 + 700, 380 + 300,
+      //     10 + 700, 380 + 300,
+      //     10 + 700, 200 + 300,
+      //     -10 + 700, 200 + 300,
+      //     -10 + 700, 380 + 300,
+      //     -60 + 700, 380 + 300,
+      //     -60 + 700, 200 + 300,
+      //     -60 + 700, 0 + 300,
+      //     -250 + 700, 0 + 300,
+      //     -250 + 700, -40 + 300,
+      //     -60 + 700, -40 + 300,
+      // ]);
 
       //   this.head = new Phaser.Geom.Circle(0, -100,60);
       // this.hole = new Hole(this);
@@ -445,7 +445,8 @@ function handCheck() {
 
 function hole_coordinates() {
   var max = 4;
-  var num = Math.floor(Math.random() * max) + 1;
+  //var num = Math.floor(Math.random() * max) + 1;
+  var num = 5;
   switch (num) {
     case 1: // person
       var coordinates = [
@@ -489,6 +490,14 @@ function hole_coordinates() {
         300, 400,
         500, 400,
         500, -200,
+      ];
+      break;
+    case 5: // center rectangle #2
+      var coordinates = [
+        810, 300,
+        810, 900,
+        1110, 900,
+        1110, 300,
       ];
       break;
   };

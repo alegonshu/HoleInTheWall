@@ -385,7 +385,10 @@ class Scene3 extends Phaser.Scene {
             font: "100px Arial", 
             fill: "#000000"
         });
-        this.countdownEl.depth = 3;
+        this.countdownEl.depth = 4;
+
+        this.countCircle = this.add.circle(425, 147, 100, 0xffffff)
+        this.countCircle.depth = 3;
     
         function updatetime() {
           this.count--;

@@ -98,7 +98,7 @@ let frames = {
         for (let part in body_index) {
             let index = body_index[part];
             let x = window.innerWidth - ((person.joints[index].pixel.x)/1280 * 1920);
-            let y = ((person.joints[index].pixel.y)/720) * 1080;
+            let y = (((person.joints[index].pixel.y)/720) * 1080)-100;
             coordinates[part] = [x, y]
           }
           added = true;

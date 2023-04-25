@@ -285,13 +285,14 @@ class Scene2 extends Phaser.Scene {
 
       if (body_coor != null && (Object.keys(body_coor.length != 0))) {
 
-        console.log(`Hole points ${this.hole.points}`);
+        console.log(this.hole.points);
 
         for (let part in body_index) {
           let current_point = new Phaser.Geom.Point(body_coor[part][0], body_coor[part][1]);
 
           if (!Phaser.Geom.Polygon.ContainsPoint(this.hole, current_point)) 
           {
+            console.log(`${part}: ${body_coor[part]} is not in the hole`);
             state = false;
           }
         }
@@ -442,7 +443,7 @@ class Scene3 extends Phaser.Scene {
 class Scene4 extends Phaser.Scene {
   constructor () {
       super('Continue');
-      
+
   }
 
   preload() {
@@ -460,11 +461,12 @@ class Scene4 extends Phaser.Scene {
     });
 
     let count = 7; // initial countdown value in seconds
-        const countdownEl = this.add.text(10, 10, count, { fontFamily: 'Arial', fontSize: 24, color: '#ffffff' });
+        this.countdownEl = this.add.text(10, 10, count, { fontFamily: 'Arial', fontSize: 24, color: '#ffffff' });
+        this.countdownEl.depth = 3;
     
         function updatetime() {
           count--;
-          countdownEl.setText(count);
+          this.countdownEl.setText(count);
           if (count === 0) {
             this.time.removeEvent(timer); // stop the timer when countdown reaches 0
           }

@@ -229,10 +229,10 @@ class Scene2 extends Phaser.Scene {
         super('Instructions');
 
         this.hole = new Phaser.Geom.Polygon([
-          210, 250,
-          210, 950,
-          510, 950,
-          510, 250,
+          1210, 250,
+          1210, 1050,
+          1510, 1050,
+          1510, 250,
         ]);
     }
 
@@ -406,7 +406,6 @@ class Scene3 extends Phaser.Scene {
         this.score.setText(`Score: ${score}`);
         var hole = this.children.getByName("hole");
         let state = true;
-
         if (this.count === 0 && this.continue == false) {
           console.log("Loading gameover");
           this.scene.start('Over');
@@ -437,13 +436,11 @@ class Scene3 extends Phaser.Scene {
             console.log(`state is ${state}`);
             body_color = "rgba(0, 0, 250, 0.8)";
             if (this.continue != true) {
-
                 this.continue = true;
                 setTimeout(() => {
                   console.log("waiting sec");
                   this.scene.start('Continue');
                 }, 2000);
-
             }
           }
           else {
@@ -472,8 +469,8 @@ class Scene4 extends Phaser.Scene {
       // this.background.displayWidth = window.innerWidth;
       
       if (this.updated != true) {
-      score += 1;
-      this.updated = true;
+        score += 1;
+        this.updated = true;
       }
       this.scene.stop('playGame');
       this.scene.stop('Over');

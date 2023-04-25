@@ -212,6 +212,9 @@ let frames = {
     update() {
         // console.log(verify);
         if (handCheck()) {
+          this.input.keyboard.on('keydown-ENTER', () => {
+            this.scene.start('Instructions');
+          });
             setTimeout(() => {
                 if (verify) {
                     this.scene.start('Instructions');
@@ -313,10 +316,8 @@ class Scene2 extends Phaser.Scene {
 class Scene3 extends Phaser.Scene {
     constructor () {
         super('playGame');
-        // let hole_coor = hole_coordinates()
-        // this.body1 = new Phaser.Geom.Polygon(hole_coor);
 
-
+        this.count = 7;
         this.body1 = new Phaser.Geom.Polygon([
           300, 300,
           1000, 300,
@@ -378,29 +379,29 @@ class Scene3 extends Phaser.Scene {
         this.graphics.lineStyle(4, 0x000000, 1);
         this.graphics.fillPoints(this.body1.points, true);
 
-        // create a new graphics object
-        // const rect = new Phaser.Geom.Rectangle(-150, 0, 300, 570);
-        
-        
-        // this.graphics = this.add.graphics();
-        // this.graphics.setName("hole");
+        this.count = 7;
+        this.countdownEl = this.add.text(400, 100, this.count, 
+          {
+            font: "100px Arial", 
+            fill: "#000000"
+        });
+        this.countdownEl.depth = 3;
+    
+        function updatetime() {
+          this.count--;
+          this.countdownEl.setText(this.count);
+          if (this.count === 0) {
+            this.time.removeEvent(timer); // stop the timer when countdown reaches 0
+          }
+        }
+    
+        const timer = this.time.addEvent({
+          delay: 1000, // repeat every 1000 milliseconds (1 second)
+          callback: updatetime,
+          callbackScope: this,
+          loop: true
+        });
 
-        // set the fill color and alpha
-        // this.graphics.fillStyle(0x000000, 1);
-        // this.graphics.lineStyle(4, 0x000000, 1);
-        // this.hole.strokeRectShape(rect);
-        // this.hole.fillRectShape(rect);
-
-        // this.hole.fillPoints(this.body1.points, true);
-        // this.hole.fillCircleShape(this.head);
-
-        
-
-        // this.graphics.depth = 2;
-        // this.graphics.x = window.innerWidth / 2;
-        // this.graphics.y = window.innerHeight /2;
-        // this.graphics.scaleX = 0.1;
-        // this.graphics.scaleY = 0.1;
 
     }
 
@@ -408,6 +409,10 @@ class Scene3 extends Phaser.Scene {
         var hole = this.children.getByName("hole");
         let state = true;
 
+        if (this.count === 0) {
+          this.scene.start('Over');
+        }
+        else {
         if (body_coor !=  null && (Object.keys(body_coor.length != 0))) {
 
           //console.log(this.body1.points);
@@ -440,6 +445,7 @@ class Scene3 extends Phaser.Scene {
           else {
             body_color = "rgba(64, 224, 208 , 0.8)";
           }
+        }
         
     }
 }
@@ -492,6 +498,68 @@ class Scene4 extends Phaser.Scene {
     if (this.count === 0) {
       this.scene.start('playGame');
     }
+  }
+}
+
+class Scene5 extends Phaser.Scene {
+  constructor () {
+      super('Over');
+      this.count = 10;
+
+  }
+
+  preload() {
+      this.load.image("background", "assets/images/hole-bg.png");
+  }
+  create() {
+
+      body_color = "rgba(64, 224, 208 , 0.8)";
+      this.add.text(450,100, "Game Over", {
+        font: "100px Arial", 
+        fill: "#000000"
+    });
+      this.add.text(450,200, "Raise your hand to restart", {
+        font: "100px Arial", 
+        fill: "#000000"
+    });
+        this.count = 10;
+        this.countdownEl = this.add.text(700, 500, `Returning to the home screen in ... ${this.count}s`, 
+          {
+            font: "50px Arial", 
+            fill: "#000000"
+        });
+        this.countdownEl.depth = 3;
+    
+        function updatetime() {
+          this.count--;
+          this.countdownEl.setText(`Returning to the home screen in ... ${this.count}s`);
+          if (this.count === 0) {
+            this.time.removeEvent(timer); // stop the timer when countdown reaches 0
+          }
+        }
+    
+        const timer = this.time.addEvent({
+          delay: 1000, // repeat every 1000 milliseconds (1 second)
+          callback: updatetime,
+          callbackScope: this,
+          loop: true
+        });
+
+  }
+  update() {
+    if (handCheck()) {
+        setTimeout(() => {
+            if (verify) {
+                this.scene.start('Instructions');
+            }
+        }, 1000);
+    }
+    else{
+      if (this.count === 0) {
+        this.scene.start('startGame');
+      }
+    }
+    
   }
 }
 
@@ -679,7 +747,7 @@ const config = {
     height: window.innerHeight,
     width: window.innerWidth,
     backgroundColor: '#FFFFFF',
-    scene: [Scene1, Scene2, Scene3, Scene4]
+    scene: [Scene1, Scene2, Scene3, Scene4, Scene5]
 }
 
 window.onload = function() {

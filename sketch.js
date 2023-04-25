@@ -446,7 +446,7 @@ class Scene3 extends Phaser.Scene {
 class Scene4 extends Phaser.Scene {
   constructor () {
       super('Continue');
-      this.count = 7;
+      this.count = 4;
 
   }
 
@@ -463,7 +463,7 @@ class Scene4 extends Phaser.Scene {
         font: "50px Arial", 
         fill: "#000000"
     });
-        this.count = 7;
+        this.count = 4;
         this.countdownEl = this.add.text(100, 100, this.count, { fontFamily: 'Arial', fontSize: 70, color: '#ffffff' });
         this.countdownEl.depth = 3;
     
@@ -512,12 +512,13 @@ function handCheck() {
 }
 
 function hole_coordinates() {
-  var max = 4;
-  var num = Math.floor(Math.random() * max) + 1;
+  let max = 15;
+  let num = Math.floor(Math.random() * max) + 1;
   //var num = 15;
+  let coordinates = [];
   switch (num) {
     case 1: // person center
-      var coordinates = [
+      coordinates = [
         900, 530,
         1020, 530,
         1020, 650,
@@ -535,7 +536,7 @@ function hole_coordinates() {
       ];
       break;
     case 2: // center rectangle
-      var coordinates = [
+      coordinates = [
         810, 450,
         810, 1050,
         1110, 1050,
@@ -543,7 +544,7 @@ function hole_coordinates() {
       ];
       break;
     case 3: // left rectangle
-      var coordinates = [
+      coordinates = [
         410, 450,
         410, 1050,
         710, 1050,
@@ -551,7 +552,7 @@ function hole_coordinates() {
       ];
       break;
     case 4: // right rectangle
-      var coordinates = [
+      coordinates = [
         1210, 450,
         1210, 1050,
         1510, 1050,
@@ -559,28 +560,28 @@ function hole_coordinates() {
       ];
       break;
     case 5: // center triangle
-      var coordinates = [
+      coordinates = [
         710, 1050,
         1210, 1050,
         960, 350
       ];
       break;
     case 6: // left triangle
-      var coordinates = [
+      coordinates = [
         310, 1050,
         810, 1050,
         560, 350
       ];
       break;
     case 7: // right triangle
-      var coordinates = [
+      coordinates = [
         1110, 1050,
         1610, 1050,
         1360, 350
       ];
       break;
     case 8: // center square
-      var coordinates = [
+      coordinates = [
         810, 650,
         810, 1050,
         1110, 1050,
@@ -588,7 +589,7 @@ function hole_coordinates() {
       ];
       break;
     case 9: // left square
-      var coordinates = [
+      coordinates = [
         410, 650,
         410, 1050,
         710, 1050,
@@ -596,7 +597,7 @@ function hole_coordinates() {
       ];
       break;
     case 10: // right square
-      var coordinates = [
+      coordinates = [
         1210, 650,
         1210, 1050,
         1510, 1050,
@@ -604,7 +605,7 @@ function hole_coordinates() {
       ];
       break;
     case 11: // center quadrilateral
-      var coordinates = [
+      coordinates = [
         710, 1050,
         1210, 1050,
         1060, 650,
@@ -612,7 +613,7 @@ function hole_coordinates() {
       ];
       break;
     case 12: // left quadrilateral
-      var coordinates = [
+      coordinates = [
         310, 1050, 
         810, 1050, 
         660, 650, 
@@ -620,7 +621,7 @@ function hole_coordinates() {
       ];
       break;
     case 13: // right quadrilateral
-      var coordinates = [
+      coordinates = [
         1110, 1050, 
         1610, 1050, 
         1460, 650, 
@@ -628,7 +629,7 @@ function hole_coordinates() {
       ];
       break;
     case 14: // person left
-      var coordinates = [
+      coordinates = [
         500, 530,
         620, 530,
         620, 650,
@@ -646,7 +647,7 @@ function hole_coordinates() {
         ];
       break;
     case 15: // person right
-      var coordinates = [
+      coordinates = [
         1300, 530,
         1420, 530,
         1420, 650,

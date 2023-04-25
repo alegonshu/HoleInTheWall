@@ -326,35 +326,13 @@ class Scene3 extends Phaser.Scene {
     constructor () {
         super('playGame');
 
-        this.count = 7;
+        this.count = 10; 
         this.body1 = new Phaser.Geom.Polygon([
           300, 300,
           1000, 300,
           1000, 900,
           300, 900,
         ]);
-      //   this.body1 = new Phaser.Geom.Polygon([
-      //     60 + 700, -40 + 300,
-      //     250 + 700, -40 + 300,
-      //     250 + 700, 0 + 300,
-      //     60 + 700, 0 + 300,
-      //     60 + 700, 200 + 300,
-      //     60 + 700, 380 + 300,
-      //     10 + 700, 380 + 300,
-      //     10 + 700, 200 + 300,
-      //     -10 + 700, 200 + 300,
-      //     -10 + 700, 380 + 300,
-      //     -60 + 700, 380 + 300,
-      //     -60 + 700, 200 + 300,
-      //     -60 + 700, 0 + 300,
-      //     -250 + 700, 0 + 300,
-      //     -250 + 700, -40 + 300,
-      //     -60 + 700, -40 + 300,
-      // ]);x
-
-      //   this.head = new Phaser.Geom.Circle(0, -100,60);
-      // this.hole = new Hole(this);
-      // this.hole.render();
     }
     
 
@@ -369,8 +347,6 @@ class Scene3 extends Phaser.Scene {
         this.tile = this.add.sprite(window.innerWidth / 2, window.innerHeight / 2, 'wall');
         // tile.setOrigin(0.5);
 
-        // this.tile.scaleX = 0.08;
-        // this.tile.scaleY = 0.08;
         this.tile.displayHeight = window.innerHeight;
         this.tile.displayWidth = window.innerWidth;
         this.tile.depth = 0;
@@ -379,8 +355,6 @@ class Scene3 extends Phaser.Scene {
         this.graphics = this.add.graphics();
         this.graphics.setName("hole");
         this.graphics.depth = 2;
-        // this.graphics.x = window.innerWidth / 2;
-        // this.graphics.y = window.innerHeight /2;
         this.graphics.scaleX = 1;
         this.graphics.scaleY = 1;
 
@@ -388,13 +362,16 @@ class Scene3 extends Phaser.Scene {
         this.graphics.lineStyle(4, 0x000000, 1);
         this.graphics.fillPoints(this.body1.points, true);
 
-        this.count = 7;
+        this.count = 10;
         this.countdownEl = this.add.text(400, 100, this.count, 
           {
             font: "100px Arial", 
             fill: "#000000"
         });
-        this.countdownEl.depth = 3;
+        this.countdownEl.depth = 4;
+
+        this.countCircle = this.add.circle(425, 147, 100, 0xffffff)
+        this.countCircle.depth = 3;
     
         function updatetime() {
           this.count--;
@@ -419,9 +396,11 @@ class Scene3 extends Phaser.Scene {
         let state = true;
 
         if (this.count === 0) {
+          console.log("Loading gameover");
           this.scene.start('Over');
+          
         }
-        else {
+        else{
         if (body_coor !=  null && (Object.keys(body_coor.length != 0))) {
 
           //console.log(this.body1.points);
@@ -449,13 +428,14 @@ class Scene3 extends Phaser.Scene {
             setTimeout(() => {
               console.log("waiting sec");
               this.scene.start('Continue');
+              
             }, 2000);
           }
           else {
             body_color = "rgba(64, 224, 208 , 0.8)";
           }
-        }
         
+        }
     }
 }
 
@@ -474,6 +454,7 @@ class Scene4 extends Phaser.Scene {
       // this.background.setOrigin(0, 0);
       // this.background.displayHeight = window.innerHeight;
       // this.background.displayWidth = window.innerWidth;
+      this.scene.stop('playGame');
       body_color = "rgba(64, 224, 208 , 0.8)";
       this.add.text(450,100, "New Hole Loading", {
         font: "100px Arial", 
@@ -560,6 +541,7 @@ class Scene5 extends Phaser.Scene {
         setTimeout(() => {
             if (verify) {
                 this.scene.start('Instructions');
+
             }
         }, 1000);
     }

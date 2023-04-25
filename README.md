@@ -20,7 +20,7 @@ The present project aims to address various tasks that are centered around impro
 4. The interface provides an opportunity for participants to take a break from work and engage in a de-stressing activity, thus uplifting their overall mood. 
 
 ## Constraints
-Our prototype is built for a specific physical location where the TV in front of Davies Auditorium is located. It also depends on specific sensing capabilities such kinect skeleton tracking. We note that we have implemented such tracking so that only a single person in front of the Kinect is kept track of, so having multiple people walking past the screen is a non-issue. That said, if someone walks in front of the current person being tracked, it will interrupt the Kinect sensing.
+Our prototype is built for a specific physical location where the TV in front of Davies Auditorium is located. It also depends on specific sensing capabilities such kinect skeleton tracking. We note that we have implemented such tracking so that only a single person in front of the Kinect is kept track of, so having multiple people walking past the screen is a non-issue. That said, if someone walks in front of the current person being tracked, it will interrupt the Kinect sensing. Another constraint is that if the person being tracked leaves the screen detection, the sensing will also be interrupted.
 
 ## Collaboration
 - Alejandro helped with the following implementation details: extracting the body part coordinates from the kinect data, designing the holes, creating a random hole coordinates generator function, and the styling and content of main game screen and the game over screen. He also helped during debugging and testing.

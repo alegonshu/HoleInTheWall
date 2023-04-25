@@ -229,10 +229,10 @@ class Scene2 extends Phaser.Scene {
         super('Instructions');
 
         this.hole = new Phaser.Geom.Polygon([
-          110, 450,
-          110, 1200,
-          410, 1200,
-          410, 450,
+          210, 250,
+          210, 950,
+          510, 950,
+          510, 250,
         ]);
     }
 
@@ -242,39 +242,39 @@ class Scene2 extends Phaser.Scene {
     create() {
 
         score = 0;
-        this.add.text(200,100, "INSTRUCTIONS", {
+        this.add.text(600,100, "INSTRUCTIONS", {
           font: "70px Title", 
           fill: "#000000"
       });
 
-        this.add.text(200,200, "A brick wall with a black hole will appear on the screen.", {
-            font: "35px Monaco", 
+        this.add.text(600,250, "A brick wall with a black hole will appear on the screen.", {
+            font: "30px Monaco", 
             fill: "#ff0044"
         });
-        this.add.text(200,300, "Position yourself such that you fit through the hole before the timer ends.", {
-            font: "35px Monaco", 
+        this.add.text(550,350, "Position yourself such that you fit through the hole before the timer ends.", {
+            font: "30px Monaco", 
             fill: "#ff0044"
         });
-        this.add.text(600,400, "Move left or right to change your position on the screen", {
-          font: "35px Monaco",
+        this.add.text(600,450, "Move left or right to change your position on the screen", {
+          font: "30px Monaco",
           fill: "#ff0044",
           fontStyle: "italic"
         });
-        this.add.text(600,500, "Move toward or away from the screen to change character size", {
-          font: "35px Monaco", 
+        this.add.text(600,550, "Move toward or away from the screen to change character size", {
+          font: "30px Monaco", 
           fill: "#ff0044",
           fontStyle: "italic"
         });
-        this.add.text(500,600, "Be quick and precise to avoid being hit by the walls.", {
-            font: "35px Monaco", 
+        this.add.text(600,650, "Be quick and precise to avoid being hit by the walls.", {
+            font: "30px Monaco", 
             fill: "#ff0044"
         });
-        this.add.text(500,700, "Good luck and have fun!", {
-            font: "35px Monaco", 
+        this.add.text(600,750, "Good luck and have fun!", {
+            font: "30px Monaco", 
             fill: "#ff0044"
         });
-        this.add.text(500,900, "<- Position yourself in the hole on the left to begin...", {
-          font: "35px Monaco", 
+        this.add.text(600,850, "<- Position yourself in the hole on the left to begin...", {
+          font: "30px Monaco", 
           fill: "#000000",
           fontWeight: "bold"
       });

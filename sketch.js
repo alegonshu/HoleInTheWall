@@ -376,7 +376,7 @@ class Scene3 extends Phaser.Scene {
         this.count = 10;
         this.countdownEl = this.add.text(150, 100, this.count, 
           {
-            font: "100px Arial", 
+            font: "100px Monaco", 
             fill: "#000000"
         });
         this.countdownEl.depth = 4;
@@ -482,14 +482,14 @@ class Scene4 extends Phaser.Scene {
         this.count = 4;
         this.countdownEl = this.add.text(900, 400, this.count, 
           {
-            font: "100px Arial", 
+            font: "100px Monaco", 
             fill: "#ffffff"
         });
         this.countdownEl.depth = 4;
 
-        this.score = this.add.text(700, 750, `Your current score is ${score}`, 
+        this.score = this.add.text(600, 750, `Your current score is ${score}`, 
           {
-            font: "50px Arial", 
+            font: "50px Monaco", 
             fill: "#000000"
         });
         this.score.depth = 4;

@@ -196,12 +196,12 @@ let frames = {
         this.background.displayHeight = window.innerHeight;
         this.background.displayWidth = window.innerWidth;
 
-        this.add.text(350,300, "HOLE IN THE WALL", {
-            font: "70px Arial", 
+        this.add.text(450,450, "HOLE IN THE WALL", {
+            font: "100px Title", 
             fill: "#ff0044"
         });
-        this.add.text(500,400, "RAISE YOUR RIGHT HAND TO PLAY", {
-            font: "30px Arial", 
+        this.add.text(610,550, "RAISE YOUR RIGHT HAND TO PLAY", {
+            font: "30px Gameplay", 
             fill: "yellow"
         });
         
@@ -228,10 +228,10 @@ class Scene2 extends Phaser.Scene {
         super('Instructions');
 
         this.hole = new Phaser.Geom.Polygon([
-          810, 450,
-          810, 1200,
-          1110, 1200,
-          1110, 450,
+          110, 450,
+          110, 1200,
+          410, 1200,
+          410, 450,
         ]);
     }
 
@@ -244,30 +244,41 @@ class Scene2 extends Phaser.Scene {
         // this.background.displayHeight = window.innerHeight;
         // this.background.displayWidth = window.innerWidth;
 
-        this.add.text(450,30, "INSTRUCTIONS", {
-          font: "50px Arial", 
+        this.add.text(500,100, "INSTRUCTIONS", {
+          font: "50px Title", 
           fill: "#000000"
       });
 
-        this.add.text(400,100, "A brick wall with a black hole will appear on the screen.", {
-            font: "20px Arial", 
+        this.add.text(500,200, "A brick wall with a black hole will appear on the screen.", {
+            font: "35px Monaco", 
             fill: "#ff0044"
         });
-        this.add.text(400,130, "Position yourself such that you fit through the hole by the end of the time.", {
-            font: "20px Arial", 
+        this.add.text(500,300, "Position yourself such that you fit through the hole before the timer ends.", {
+            font: "35px Monaco", 
             fill: "#ff0044"
         });
-        this.add.text(400,160, "Be quick and precise to avoid being hit by the walls.", {
-            font: "20px Arial", 
+        this.add.text(600,400, "Move left or right to change your position on the screen", {
+          font: "35px Monaco",
+          fill: "#ff0044",
+          fontStyle: "italic"
+        });
+        this.add.text(600,500, "Move toward or away from the screen to change character size", {
+          font: "35px Monaco", 
+          fill: "#ff0044",
+          fontStyle: "italic"
+        });
+        this.add.text(500,600, "Be quick and precise to avoid being hit by the walls.", {
+            font: "35px Monaco", 
             fill: "#ff0044"
         });
-        this.add.text(400,190, "Good luck and have fun!", {
-            font: "20px Arial", 
+        this.add.text(500,700, "Good luck and have fun!", {
+            font: "35px Monaco", 
             fill: "#ff0044"
         });
-        this.add.text(450,220, "Position yourself in the hole to begin", {
-          font: "25px Arial", 
-          fill: "#000000"
+        this.add.text(500,900, "<- Position yourself in the hole on the left to begin...", {
+          font: "35px Monaco", 
+          fill: "#000000",
+          fontWeight: "bold"
       });
           
         this.graphics = this.add.graphics();
@@ -278,8 +289,6 @@ class Scene2 extends Phaser.Scene {
         this.graphics.fillStyle(0x000000, 1);
         this.graphics.lineStyle(4, 0x000000, 1);
         this.graphics.fillPoints(this.hole.points, true);
-
-
         
     }
     update() {
